@@ -13,5 +13,3 @@
 [ \t] ;
 \n {yylineno++;}
 . {return yytext[0];}
-
- 
