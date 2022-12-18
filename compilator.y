@@ -6,13 +6,13 @@ extern int yylineno;
 %}
 %token ID TIP BGIN END ASSIGN NR 
 %start progr
-%left '+'
-%left '*'
+%left '+' '-'
+%left '*' '/'
 %%
 progr: declaratii bloc {printf("program corect sintactic\n");}
      ;
 
-declaratii :  declaratie ';'
+declaratii : declaratie ';'
 	   | declaratii declaratie ';'
 	   ;
 declaratie : TIP lista_id
