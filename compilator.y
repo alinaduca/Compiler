@@ -11,7 +11,7 @@ extern int yylineno;
      int intval;
      char* strval;
 }
-%token ID TIP BGIN END ASSIGN NR CLASS ECLASS IF EIF OPR FOR EFOR CONSTANT NRFLOAT
+%token ID TIP BGIN END ASSIGN NR CLASS ECLASS IF EIF OPR FOR EFOR CONSTANT NRFLOAT WHILE EWHILE DO EVAL TYPEOF
 %start progr
 %left '+' '-'
 %left '*' '/'
@@ -78,13 +78,17 @@ list :  statement ';'
      | list statement ';'
      | list if
      | list for
+     | list do
+     | list while
      ;
 
 /* instructiune */
 statement: ID ASSIGN e
          | ID '(' lista_apel ')'
+         | TYPEOF '(' e ')'
          | ID '.' ID ASSIGN e
          | ID '.' ID '(' lista_apel ')'
+         | ID sizes ASSIGN e
          ;
 
 if : IF '(' e OPR e ')' list EIF
@@ -94,6 +98,13 @@ for : FOR '(' TIP ID ASSIGN e ';' e OPR e ';' statement ')' list EFOR
     | FOR '(' ID ASSIGN e ';' e OPR e ';' statement ')' list EFOR
     ;
 
+do : DO list WHILE '(' e OPR e ')' ';'
+
+while : WHILE '(' e OPR e ')' list EWHILE
+      ;
+
+
+
 e : e '+' e
   | e '-' e
   | e '*' e
@@ -101,9 +112,11 @@ e : e '+' e
   | '(' e ')'
   | ID
   | NR
+  | ID sizes
   | NRFLOAT
   | ID '(' lista_apel ')'
   | ID '.' ID '(' lista_apel ')'
+  | EVAL '(' e ')'
   ;
 
 lista_apel : e

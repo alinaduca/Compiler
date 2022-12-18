@@ -63,7 +63,12 @@ extern int yydebug;
     FOR = 269,
     EFOR = 270,
     CONSTANT = 271,
-    NRFLOAT = 272
+    NRFLOAT = 272,
+    WHILE = 273,
+    EWHILE = 274,
+    DO = 275,
+    EVAL = 276,
+    TYPEOF = 277
   };
 #endif
 /* Tokens.  */
@@ -82,6 +87,11 @@ extern int yydebug;
 #define EFOR 270
 #define CONSTANT 271
 #define NRFLOAT 272
+#define WHILE 273
+#define EWHILE 274
+#define DO 275
+#define EVAL 276
+#define TYPEOF 277
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -92,7 +102,7 @@ union YYSTYPE
      int intval;
      char* strval;
 
-#line 96 "y.tab.h"
+#line 106 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
