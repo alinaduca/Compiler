@@ -1,0 +1,8 @@
+int a1, b1;
+float f1;
+bool x;
+int yy[100];
+int sum();
+int g(int s);
+int program(int a, int b);
+program(a1 + 2*5, 5);

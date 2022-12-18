@@ -1,9 +1,16 @@
 %{
 #include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <string.h>
 extern FILE* yyin;
 extern char* yytext;
 extern int yylineno;
 %}
+%union {
+int intval;
+char* strval;
+}
 %token ID TIP BGIN END ASSIGN NR 
 %start progr
 %left '+' '-'
@@ -15,13 +22,21 @@ progr: declaratii bloc {printf("program corect sintactic\n");}
 declaratii : declaratie ';'
 	   | declaratii declaratie ';'
 	   ;
+
 declaratie : TIP lista_id
            | TIP ID '(' lista_param ')'
            | TIP ID '(' ')'
+           | TIP ID sizes
            ;
+
+sizes : '[' NR ']'
+      | '[' NR ']' sizes
+      ;
+
 lista_id : ID
          | ID ',' lista_id 
          ;
+
 lista_param : param
             | lista_param ','  param 
             ;
@@ -44,12 +59,15 @@ statement: ID ASSIGN e
          ;
 
 e : e '+' e
+  | e '-' e
   | e '*' e
+  | e '/' e
   | '(' e ')'
   | ID
   | NR
   | ID '(' lista_apel ')'
   ;
+
 lista_apel : e
            | lista_apel ',' e
            ;
