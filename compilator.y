@@ -39,7 +39,8 @@ sectiunea3 : clasa
 
 declaratieVariabila : TIP lista_id
                     | TIP ID sizes
-                    | CONSTANT TIP lista_id;
+                    | CONSTANT TIP lista_id
+                    ;
 
 declaratieFunctie : TIP ID '(' lista_param ')'
                   | TIP ID '(' ')'
