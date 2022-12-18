@@ -2,7 +2,6 @@ int a1, b1;
 float f1;
 bool x;
 int yy[100];
-const int x;
 
 int sum();
 int g(int s);
