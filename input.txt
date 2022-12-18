@@ -4,6 +4,7 @@ bool x;
 int yy[100];
 begin_clasa biblioteca
     int carte;
+    bool existaCarte(string ISBN);
 end_clasa
 int sum();
 int g(int s);
@@ -11,6 +12,14 @@ int program(int a, int b);
 begin_main
     a1 = 5 - a1 * 2;
     f1 = 6;
+    biblioteca.carte=5;
+    exist = biblioteca.existaCarte(ISBN);
     program(a1 + 2*5, 5);
+    if ( ana > 7) 
+        a = b + c;
+    end_if
+    for(int i = 1; i < 5; i=i+1)
+        a = c + b;
+    end_for
     a1 = a1 + (23*5+b1*3+g(4));
 end_main

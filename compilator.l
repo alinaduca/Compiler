@@ -6,6 +6,11 @@
 %option noyywrap
 %%
 "int"|"float"|"char"|"string"|"bool" {return TIP;}
+">"|"<"|"=="|"!="|">="|"<=" {return OPR;}
+"if" {return IF;}
+"end_if" {return EIF;}
+"for" {return FOR;}
+"end_for" {return EFOR;}
 "begin_clasa" {return CLASS;}
 "end_clasa" {return ECLASS;}
 "begin_main" {return BGIN;}

@@ -56,7 +56,12 @@ extern int yydebug;
     ASSIGN = 262,
     NR = 263,
     CLASS = 264,
-    ECLASS = 265
+    ECLASS = 265,
+    IF = 266,
+    EIF = 267,
+    OPR = 268,
+    FOR = 269,
+    EFOR = 270
   };
 #endif
 /* Tokens.  */
@@ -68,6 +73,11 @@ extern int yydebug;
 #define NR 263
 #define CLASS 264
 #define ECLASS 265
+#define IF 266
+#define EIF 267
+#define OPR 268
+#define FOR 269
+#define EFOR 270
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -75,10 +85,10 @@ union YYSTYPE
 {
 #line 10 "compilator.y"
 
-int intval;
-char* strval;
+     int intval;
+     char* strval;
 
-#line 82 "y.tab.h"
+#line 92 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
