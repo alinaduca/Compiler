@@ -1,6 +1,16 @@
-b1
-a1
-f1
-x
-yy 
-carte
+b1 a1 (int)
+f1 (float)
+x (bool)
+[100]yy (int)
+carte (int)
+5 a1 2  *  -  = a1
+6  = f1
+5 ISBN  = exist
+a1 2 5  *  + 5 ana 7 b c  +  = a
+1 i 5 i 1  +  = i
+c b  +  = a
+mara ana maria bianca  +  = simona
+fifi 1  +  = fifi
+zi noapte 52 5  = a
+a  = a
+b a1 23 5  * b1 3  *  + 4  +  +  = a1

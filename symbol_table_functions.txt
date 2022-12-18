@@ -1,0 +1,4 @@
+[FUNCTION] int (sum) 
+int (s) [FUNCTION] int (g) 
+int (a) int (b) [FUNCTION] int (program) 
+string (ISBN) [FUNCTION] bool (existaCarte) 

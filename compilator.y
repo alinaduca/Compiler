@@ -15,8 +15,8 @@ int fd, fd1;
      int intval;
      char* strval;
 }
-%token BGIN END NR CLASS ECLASS IF EIF OPR FOR EFOR CONSTANT NRFLOAT WHILE EWHILE DO EVAL TYPEOF
-%token <strval> ID TIP ASSIGN
+%token <strval> ID TIP ASSIGN BGIN END CLASS ECLASS IF EIF OPR FOR EFOR CONSTANT WHILE EWHILE DO EVAL TYPEOF
+%token <intval> NR
 %start progr
 %left '+' '-'
 %left '*' '/'
@@ -42,16 +42,16 @@ sectiunea3 : clasa
            | sectiunea3 clasa
            ;
 
-declaratieVariabila : TIP lista_id /*{ snprintf(buff,100,"%s \n",$1); write(fd, buff, strlen(buff));}*/
-                    | TIP ID sizes { snprintf(buff,100,"%s \n",$2); write(fd, buff, strlen(buff));}
+declaratieVariabila : TIP lista_id { snprintf(buff,100,"(%s)\n", $1); write(fd, buff, strlen(buff));}
+                    | TIP ID sizes { snprintf(buff,100,"%s (%s)\n",$2, $1); write(fd, buff, strlen(buff));}
                     | CONSTANT TIP lista_id
                     ;
 
-declaratieFunctie : TIP ID '(' lista_param ')' /*{ snprintf(buff,100,"%s (%s %s) \n",$1,$3,$4); write(fd1, buff, strlen(buff));}*/
-                  | TIP ID '(' ')' /*{ snprintf(buff,100,"%s() \n",$1); write(fd1, buff, strlen(buff));} */
+declaratieFunctie : TIP ID '(' lista_param ')' { snprintf(buff,100,"[FUNCTION] %s (%s) \n",$1, $2); write(fd1, buff, strlen(buff));}
+                  | TIP ID '(' ')' { snprintf(buff,100,"[FUNCTION] %s (%s) \n",$1, $2); write(fd1, buff, strlen(buff));}
                   ;
 
-clasa : CLASS ID interior_clasa ECLASS
+clasa : CLASS ID interior_clasa ECLASS 
       ;
 
 interior_clasa : sectiunea1 sectiunea2
@@ -59,19 +59,23 @@ interior_clasa : sectiunea1 sectiunea2
                | sectiunea2
                ;
 
-sizes : '[' NR ']' 
+sizes : '[' NR ']' { snprintf(buff,100,"[%d]",$2); write(fd, buff, strlen(buff));}
       | '[' NR ']' sizes 
       ;
 
-lista_id : ID { snprintf(buff,100,"%s\n",$1); write(fd, buff, strlen(buff));}
-         | ID ',' lista_id { snprintf(buff,100,"%s\n",$1); write(fd, buff, strlen(buff));}
+indexes : '[' NR ']'
+        | '[' NR ']' indexes
+        ;
+
+lista_id : ID { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
+         | ID ',' lista_id { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
          ;
 
 lista_param : param
-            | lista_param ','  param 
+            | lista_param ','  param
             ;
             
-param : TIP ID /*{ snprintf(buff,100,"%s (%s)\n",$1, $2); write(fd, buff, strlen(buff));}*/
+param : TIP ID  { snprintf(buff,100,"%s (%s) ",$1, $2); write(fd1, buff, strlen(buff));}
       ; 
       
 /* bloc */
@@ -79,7 +83,7 @@ bloc : BGIN list END
      ;
      
 /* lista instructiuni */
-list :  statement ';' 
+list : statement ';' 
      | list statement ';'
      | list if
      | list for
@@ -88,12 +92,12 @@ list :  statement ';'
      ;
 
 /* instructiune */
-statement: ID ASSIGN e
+statement: ID ASSIGN e { snprintf(buff,100," = %s\n", $1); write(fd, buff, strlen(buff));}
          | ID '(' lista_apel ')'
          | TYPEOF '(' e ')'
          | ID '.' ID ASSIGN e
          | ID '.' ID '(' lista_apel ')'
-         | ID sizes ASSIGN e
+         | ID indexes ASSIGN e
          ;
 
 if : IF '(' e OPR e ')' list EIF
@@ -108,15 +112,14 @@ do : DO list WHILE '(' e OPR e ')' ';'
 while : WHILE '(' e OPR e ')' list EWHILE
       ;
 
-e : e '+' e
-  | e '-' e
-  | e '*' e
-  | e '/' e
+e : e '+' e { snprintf(buff,100," + "); write(fd, buff, strlen(buff));}
+  | e '-' e { snprintf(buff,100," - "); write(fd, buff, strlen(buff));}
+  | e '*' e { snprintf(buff,100," * "); write(fd, buff, strlen(buff));}
+  | e '/' e { snprintf(buff,100," / "); write(fd, buff, strlen(buff));}
   | '(' e ')'
-  | ID
-  | NR
-  | ID sizes
-  | NRFLOAT
+  | ID { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
+  | NR { snprintf(buff,100,"%d ",$1); write(fd, buff, strlen(buff));}
+  | ID indexes
   | ID '(' lista_apel ')'
   | ID '.' ID '(' lista_apel ')'
   | EVAL '(' e ')'
@@ -133,8 +136,8 @@ int yyerror(char * s)
 
 int main(int argc, char** argv)
 {
-     fd = open ("symbol_table.txt", O_RDWR);
-     fd1 = open ("symbol_table_functions.txt", O_RDWR);
+     fd = open ("symbol_table.txt", O_RDWR|O_TRUNC);
+     fd1 = open ("symbol_table_functions.txt", O_RDWR|O_TRUNC);
      yyin = fopen(argv[1],"r");
      yyparse();
 } 

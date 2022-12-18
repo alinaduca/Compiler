@@ -49,49 +49,47 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    BGIN = 258,
-    END = 259,
-    NR = 260,
-    CLASS = 261,
-    ECLASS = 262,
-    IF = 263,
-    EIF = 264,
-    OPR = 265,
-    FOR = 266,
-    EFOR = 267,
-    CONSTANT = 268,
-    NRFLOAT = 269,
-    WHILE = 270,
-    EWHILE = 271,
-    DO = 272,
-    EVAL = 273,
-    TYPEOF = 274,
-    ID = 275,
-    TIP = 276,
-    ASSIGN = 277
+    ID = 258,
+    TIP = 259,
+    ASSIGN = 260,
+    BGIN = 261,
+    END = 262,
+    CLASS = 263,
+    ECLASS = 264,
+    IF = 265,
+    EIF = 266,
+    OPR = 267,
+    FOR = 268,
+    EFOR = 269,
+    CONSTANT = 270,
+    WHILE = 271,
+    EWHILE = 272,
+    DO = 273,
+    EVAL = 274,
+    TYPEOF = 275,
+    NR = 276
   };
 #endif
 /* Tokens.  */
-#define BGIN 258
-#define END 259
-#define NR 260
-#define CLASS 261
-#define ECLASS 262
-#define IF 263
-#define EIF 264
-#define OPR 265
-#define FOR 266
-#define EFOR 267
-#define CONSTANT 268
-#define NRFLOAT 269
-#define WHILE 270
-#define EWHILE 271
-#define DO 272
-#define EVAL 273
-#define TYPEOF 274
-#define ID 275
-#define TIP 276
-#define ASSIGN 277
+#define ID 258
+#define TIP 259
+#define ASSIGN 260
+#define BGIN 261
+#define END 262
+#define CLASS 263
+#define ECLASS 264
+#define IF 265
+#define EIF 266
+#define OPR 267
+#define FOR 268
+#define EFOR 269
+#define CONSTANT 270
+#define WHILE 271
+#define EWHILE 272
+#define DO 273
+#define EVAL 274
+#define TYPEOF 275
+#define NR 276
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -102,7 +100,7 @@ union YYSTYPE
      int intval;
      char* strval;
 
-#line 106 "y.tab.h"
+#line 104 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

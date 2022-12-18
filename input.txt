@@ -30,7 +30,6 @@ begin_main
     do
         fifi=fifi+1;
     while(zi<noapte);
-    a=0.5;
     a.b = vec[17];
     vec[18] = 52;
     a = b.fct(5);
