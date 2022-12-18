@@ -54,7 +54,9 @@ extern int yydebug;
     BGIN = 260,
     END = 261,
     ASSIGN = 262,
-    NR = 263
+    NR = 263,
+    CLASS = 264,
+    ECLASS = 265
   };
 #endif
 /* Tokens.  */
@@ -64,6 +66,8 @@ extern int yydebug;
 #define END 261
 #define ASSIGN 262
 #define NR 263
+#define CLASS 264
+#define ECLASS 265
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -74,7 +78,7 @@ union YYSTYPE
 int intval;
 char* strval;
 
-#line 78 "y.tab.h"
+#line 82 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

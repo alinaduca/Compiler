@@ -6,6 +6,8 @@
 %option noyywrap
 %%
 "int"|"float"|"char"|"string"|"bool" {return TIP;}
+"begin_clasa" {return CLASS;}
+"end_clasa" {return ECLASS;}
 "begin_main" {return BGIN;}
 "end_main" {return END;}
 [_a-zA-Z][_a-zA-Z0-9]* {return ID;}

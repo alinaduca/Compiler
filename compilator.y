@@ -11,7 +11,7 @@ extern int yylineno;
 int intval;
 char* strval;
 }
-%token ID TIP BGIN END ASSIGN NR 
+%token ID TIP BGIN END ASSIGN NR CLASS ECLASS
 %start progr
 %left '+' '-'
 %left '*' '/'
@@ -21,7 +21,13 @@ progr: declaratii bloc {printf("program corect sintactic\n");}
 
 declaratii : declaratie ';'
 	   | declaratii declaratie ';'
+        | declaratii clasa;
 	   ;
+
+clasa : CLASS ID interior_clasa ECLASS
+      ;
+
+interior_clasa : declaratii;
 
 declaratie : TIP lista_id
            | TIP ID '(' lista_param ')'
@@ -45,7 +51,7 @@ param : TIP ID
       ; 
       
 /* bloc */
-bloc : BGIN list END  
+bloc : BGIN list END
      ;
      
 /* lista instructiuni */
