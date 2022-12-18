@@ -19,9 +19,11 @@ extern int yylineno;
 progr: sectiunea1 rest1 {printf("program corect sintactic\n");}
      ;
 
-rest1 : sectiunea2 rest2;
+rest1 : sectiunea2 rest2
+      ;
 
-rest2 : sectiunea3 bloc;
+rest2 : sectiunea3 bloc
+      ;
 
 sectiunea1 : declaratieVariabila ';'
            | sectiunea1 declaratieVariabila ';'
@@ -86,7 +88,6 @@ statement: ID ASSIGN e
 
 if : IF '(' e OPR e ')' list EIF
    ;
-
 
 for : FOR '(' TIP ID ASSIGN e ';' e OPR e ';' statement ')' list EFOR
     | FOR '(' ID ASSIGN e ';' e OPR e ';' statement ')' list EFOR
