@@ -11,29 +11,45 @@ extern int yylineno;
      int intval;
      char* strval;
 }
-%token ID TIP BGIN END ASSIGN NR CLASS ECLASS IF EIF OPR FOR EFOR
+%token ID TIP BGIN END ASSIGN NR CLASS ECLASS IF EIF OPR FOR EFOR CONSTANT NRFLOAT
 %start progr
 %left '+' '-'
 %left '*' '/'
 %%
-progr: declaratii bloc {printf("program corect sintactic\n");}
+progr: sectiunea1 rest1 {printf("program corect sintactic\n");}
      ;
 
-declaratii : declaratie ';'
-	   | declaratii declaratie ';'
-        | declaratii clasa;
-	   ;
+rest1 : sectiunea2 rest2;
+
+rest2 : sectiunea3 bloc;
+
+sectiunea1 : declaratieVariabila ';'
+           | sectiunea1 declaratieVariabila ';'
+           ;
+
+sectiunea2 : declaratieFunctie ';'
+           | sectiunea2 declaratieFunctie ';'
+           ;
+
+sectiunea3 : clasa
+           | sectiunea3 clasa
+           ;
+
+declaratieVariabila : TIP lista_id
+                    | TIP ID sizes
+                    | CONSTANT TIP lista_id;
+
+declaratieFunctie : TIP ID '(' lista_param ')'
+                  | TIP ID '(' ')'
+                  ;
 
 clasa : CLASS ID interior_clasa ECLASS
       ;
 
-interior_clasa : declaratii;
-
-declaratie : TIP lista_id
-           | TIP ID '(' lista_param ')'
-           | TIP ID '(' ')'
-           | TIP ID sizes
-           ;
+interior_clasa : sectiunea1 sectiunea2
+               | sectiunea1
+               | sectiunea2
+               ;
 
 sizes : '[' NR ']'
       | '[' NR ']' sizes
@@ -68,13 +84,12 @@ statement: ID ASSIGN e
          | ID '.' ID '(' lista_apel ')'
          ;
 
-if : IF '(' ID OPR ID')' list EIF
-   | IF '(' NR OPR ID')' list EIF
-   | IF '(' ID OPR NR')' list EIF
-   | IF '(' NR OPR NR')' list EIF
+if : IF '(' e OPR e ')' list EIF
    ;
 
-for : FOR '(' TIP ID ASSIGN e ';' ID OPR e ';' statement ')' list EFOR
+
+for : FOR '(' TIP ID ASSIGN e ';' e OPR e ';' statement ')' list EFOR
+    | FOR '(' ID ASSIGN e ';' e OPR e ';' statement ')' list EFOR
     ;
 
 e : e '+' e
@@ -84,6 +99,7 @@ e : e '+' e
   | '(' e ')'
   | ID
   | NR
+  | NRFLOAT
   | ID '(' lista_apel ')'
   | ID '.' ID '(' lista_apel ')'
   ;

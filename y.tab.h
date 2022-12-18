@@ -61,7 +61,9 @@ extern int yydebug;
     EIF = 267,
     OPR = 268,
     FOR = 269,
-    EFOR = 270
+    EFOR = 270,
+    CONSTANT = 271,
+    NRFLOAT = 272
   };
 #endif
 /* Tokens.  */
@@ -78,6 +80,8 @@ extern int yydebug;
 #define OPR 268
 #define FOR 269
 #define EFOR 270
+#define CONSTANT 271
+#define NRFLOAT 272
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -88,7 +92,7 @@ union YYSTYPE
      int intval;
      char* strval;
 
-#line 92 "y.tab.h"
+#line 96 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
