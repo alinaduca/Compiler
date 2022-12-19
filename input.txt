@@ -3,7 +3,11 @@ float f1;
 bool x;
 int yy[100];
 
-int sum();
+int sum()
+begin_function
+    a=b+c;
+    return x;
+end_function
 int g(int s);
 int program(int a, int b);
 
@@ -21,14 +25,17 @@ begin_main
     if ( ana > 7) 
         a = b + c;
     end_if
-    for(int i = 1; i < 5; i=i+1)
+    for(int i = 1; i < 5; i = i + 1)
         a = c + b;
     end_for
-    while(mara<ana)
-        simona=maria+bianca;
+    while(mara < ana)
+        simona = maria + bianca;
+        if(a < i)
+            k = l - 1;
+        end_if
     end_while
     do
-        fifi=fifi+1;
+        fifi = fifi + 1;
     while(zi<noapte);
     a.b = vec[17];
     vec[18] = 52;

@@ -2,7 +2,8 @@ b1 a1 (int)
 f1 (float)
 x (bool)
 [100]yy (int)
-carte (int)
+b c + = a
+x carte (int)
 5 a1 2 * - = a1
 6 = f1
 5 = biblioteca.carte
@@ -11,6 +12,7 @@ carte (int)
 1 i 5 i 1 + = i
 c b + = a
 mara ana maria bianca + = simona
+a i l 1 - = k
 fifi 1 + = fifi
 zi noapte [17]vec = a.b
 [18]vec = 52 ( 5 ) b.fct = a
