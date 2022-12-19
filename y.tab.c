@@ -505,7 +505,7 @@ union yyalloc
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  27
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  61
+#define YYNRULES  62
 /* YYNSTATES -- Number of states.  */
 #define YYNSTATES  171
 
@@ -561,8 +561,8 @@ static const yytype_uint8 yyrline[] =
       62,    63,    66,    67,    70,    71,    74,    75,    78,    82,
       86,    87,    88,    89,    90,    91,    95,    96,    97,    98,
       99,   100,   100,   103,   106,   107,   110,   112,   115,   116,
-     117,   118,   119,   120,   121,   122,   123,   124,   125,   128,
-     128,   129
+     117,   118,   119,   120,   121,   122,   123,   124,   125,   126,
+     129,   129,   130
 };
 #endif
 
@@ -638,16 +638,16 @@ static const yytype_int8 yydefact[] =
       13,    24,     0,     0,     3,     0,     0,     9,     6,     7,
        0,    25,     0,     0,     0,     0,    10,     4,     8,    20,
        0,    15,     0,    26,    18,    19,     0,     0,     0,     0,
-       0,    21,    28,    14,     0,    17,    16,     0,    59,     0,
+       0,    21,    28,    14,     0,    17,    16,     0,    60,     0,
        0,     0,     0,    29,     0,     0,     0,     0,     0,    32,
       33,    34,    35,    30,    27,    53,     0,    54,     0,    36,
        0,     0,     0,     0,    41,     0,     0,     0,     0,     0,
-      31,    59,     0,    55,     0,     0,     0,     0,     0,     0,
-      37,     0,    60,    22,     0,    59,     0,    38,     0,     0,
-       0,     0,     0,     0,     0,     0,    52,    48,    49,    50,
-      51,    61,    23,    39,     0,    42,     0,     0,     0,     0,
-       0,    56,    59,    58,    40,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,    57,     0,     0,     0,
+      31,    60,     0,    55,     0,     0,     0,     0,     0,     0,
+      37,     0,    61,    22,     0,    60,     0,    38,     0,     0,
+       0,     0,     0,     0,    57,     0,    52,    48,    49,    50,
+      51,    62,    23,    39,     0,    42,     0,     0,     0,     0,
+       0,    56,    60,    59,    40,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,    58,     0,     0,     0,
        0,     0,    43,     0,     0,    47,     0,     0,     0,    46,
        0,     0,     0,     0,     0,     0,     0,     0,    45,     0,
       44
@@ -766,8 +766,8 @@ static const yytype_int8 yyr1[] =
       44,    44,    45,    45,    46,    46,    47,    47,    48,    49,
       50,    50,    50,    50,    50,    50,    51,    51,    51,    51,
       51,    52,    51,    53,    54,    54,    55,    56,    57,    57,
-      57,    57,    57,    57,    57,    57,    57,    57,    57,    59,
-      58,    58
+      57,    57,    57,    57,    57,    57,    57,    57,    57,    57,
+      59,    58,    58
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
@@ -778,8 +778,8 @@ static const yytype_int8 yyr2[] =
        3,     4,     3,     4,     1,     3,     1,     3,     2,     3,
        2,     3,     2,     2,     2,     2,     3,     4,     4,     5,
        6,     0,     5,     8,    15,    14,     9,     8,     3,     3,
-       3,     3,     3,     1,     1,     2,     4,     6,     4,     0,
-       2,     3
+       3,     3,     3,     1,     1,     2,     4,     3,     6,     4,
+       0,     2,     3
 };
 
 
@@ -1510,116 +1510,122 @@ yyreduce:
 #line 1511 "y.tab.c"
     break;
 
+  case 22:
+#line 66 "compilator.y"
+                     { snprintf(buff,100,"[%d]",(yyvsp[-1].intval)); write(fd, buff, strlen(buff));}
+#line 1517 "y.tab.c"
+    break;
+
   case 24:
 #line 70 "compilator.y"
               { snprintf(buff,100,"%s ",(yyvsp[0].strval)); write(fd, buff, strlen(buff));}
-#line 1517 "y.tab.c"
+#line 1523 "y.tab.c"
     break;
 
   case 25:
 #line 71 "compilator.y"
                            { snprintf(buff,100,"%s ",(yyvsp[-2].strval)); write(fd, buff, strlen(buff));}
-#line 1523 "y.tab.c"
+#line 1529 "y.tab.c"
     break;
 
   case 28:
 #line 78 "compilator.y"
                 { snprintf(buff,100,"%s (%s) ",(yyvsp[-1].strval), (yyvsp[0].strval)); write(fd1, buff, strlen(buff));}
-#line 1529 "y.tab.c"
+#line 1535 "y.tab.c"
     break;
 
   case 36:
 #line 95 "compilator.y"
                        { snprintf(buff,100," = %s\n", (yyvsp[-2].strval)); write(fd, buff, strlen(buff));}
-#line 1535 "y.tab.c"
+#line 1541 "y.tab.c"
     break;
 
   case 38:
 #line 97 "compilator.y"
                             { snprintf(buff,100,"TypeOf \n"); write(fd, buff, strlen(buff));}
-#line 1541 "y.tab.c"
+#line 1547 "y.tab.c"
     break;
 
   case 39:
 #line 98 "compilator.y"
                               { snprintf(buff,100,"= %s.%s\n", (yyvsp[-4].strval), (yyvsp[-2].strval)); write(fd, buff, strlen(buff));}
-#line 1547 "y.tab.c"
+#line 1553 "y.tab.c"
     break;
 
   case 41:
 #line 100 "compilator.y"
                              { snprintf(buff,100,"%s = ",(yyvsp[-2].strval)); write(fd, buff, strlen(buff));}
-#line 1553 "y.tab.c"
+#line 1559 "y.tab.c"
     break;
 
   case 48:
 #line 115 "compilator.y"
             { snprintf(buff,100," + "); write(fd, buff, strlen(buff));}
-#line 1559 "y.tab.c"
+#line 1565 "y.tab.c"
     break;
 
   case 49:
 #line 116 "compilator.y"
             { snprintf(buff,100," - "); write(fd, buff, strlen(buff));}
-#line 1565 "y.tab.c"
+#line 1571 "y.tab.c"
     break;
 
   case 50:
 #line 117 "compilator.y"
             { snprintf(buff,100," * "); write(fd, buff, strlen(buff));}
-#line 1571 "y.tab.c"
+#line 1577 "y.tab.c"
     break;
 
   case 51:
 #line 118 "compilator.y"
             { snprintf(buff,100," / "); write(fd, buff, strlen(buff));}
-#line 1577 "y.tab.c"
+#line 1583 "y.tab.c"
     break;
 
   case 53:
 #line 120 "compilator.y"
        { snprintf(buff,100,"%s ",(yyvsp[0].strval)); write(fd, buff, strlen(buff));}
-#line 1583 "y.tab.c"
+#line 1589 "y.tab.c"
     break;
 
   case 54:
 #line 121 "compilator.y"
        { snprintf(buff,100,"%d ",(yyvsp[0].intval)); write(fd, buff, strlen(buff));}
-#line 1589 "y.tab.c"
+#line 1595 "y.tab.c"
     break;
 
   case 55:
 #line 122 "compilator.y"
                { snprintf(buff,100,"%s ",(yyvsp[-1].strval)); write(fd, buff, strlen(buff));}
-#line 1595 "y.tab.c"
-    break;
-
-  case 57:
-#line 124 "compilator.y"
-                                 { snprintf(buff,100,"%s.%s ", (yyvsp[-5].strval), (yyvsp[-3].strval)); write(fd, buff, strlen(buff));}
 #line 1601 "y.tab.c"
     break;
 
   case 58:
 #line 125 "compilator.y"
-                   { snprintf(buff,100,"Eval "); write(fd, buff, strlen(buff));}
+                                 { snprintf(buff,100,"%s.%s ", (yyvsp[-5].strval), (yyvsp[-3].strval)); write(fd, buff, strlen(buff));}
 #line 1607 "y.tab.c"
     break;
 
   case 59:
-#line 128 "compilator.y"
-             { snprintf(buff,100,"( "); write(fd, buff, strlen(buff));}
+#line 126 "compilator.y"
+                   { snprintf(buff,100,"Eval "); write(fd, buff, strlen(buff));}
 #line 1613 "y.tab.c"
     break;
 
   case 60:
-#line 128 "compilator.y"
-                                                                          { snprintf(buff,100,")\n"); write(fd, buff, strlen(buff));}
+#line 129 "compilator.y"
+             { snprintf(buff,100,"( "); write(fd, buff, strlen(buff));}
 #line 1619 "y.tab.c"
     break;
 
+  case 61:
+#line 129 "compilator.y"
+                                                                          { snprintf(buff,100,")\n"); write(fd, buff, strlen(buff));}
+#line 1625 "y.tab.c"
+    break;
 
-#line 1623 "y.tab.c"
+
+#line 1629 "y.tab.c"
 
       default: break;
     }
@@ -1851,7 +1857,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 131 "compilator.y"
+#line 132 "compilator.y"
 
 int yyerror(char * s)
 {

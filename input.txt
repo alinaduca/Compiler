@@ -17,7 +17,7 @@ begin_main
     f1 = 6;
     biblioteca.carte=5;
     exist = biblioteca.existaCarte(ISBN);
-    program(a1 + 2*5, 5);
+    program(a1 + 2*5, 5, program(2,a1+10)*ceva+vec[10] + biblioteca.carte);
     if ( ana > 7) 
         a = b + c;
     end_if

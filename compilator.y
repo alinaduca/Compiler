@@ -63,7 +63,7 @@ sizes : '[' NR ']' { snprintf(buff,100,"[%d]",$2); write(fd, buff, strlen(buff))
       | '[' NR ']' sizes 
       ;
 
-indexes : '[' NR ']'
+indexes : '[' NR ']' { snprintf(buff,100,"[%d]",$2); write(fd, buff, strlen(buff));}
         | '[' NR ']' indexes
         ;
 
@@ -85,7 +85,7 @@ bloc : BGIN list END
 /* lista instructiuni */
 list : statement ';' 
      | list statement ';'
-     | list if
+     | list if 
      | list for
      | list do
      | list while
@@ -121,6 +121,7 @@ e : e '+' e { snprintf(buff,100," + "); write(fd, buff, strlen(buff));}
   | NR { snprintf(buff,100,"%d ",$1); write(fd, buff, strlen(buff));}
   | ID indexes { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
   | ID '(' lista_apel ')'
+  | ID '.' ID
   | ID '.' ID '(' lista_apel ')' { snprintf(buff,100,"%s.%s ", $1, $3); write(fd, buff, strlen(buff));}
   | EVAL '(' e ')' { snprintf(buff,100,"Eval "); write(fd, buff, strlen(buff));}
   ;

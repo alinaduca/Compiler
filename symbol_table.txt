@@ -9,13 +9,14 @@ carte (int)
 ( ISBN )
 biblioteca.existaCarte  = exist
 ( a1 2 5  *  + )
-5 ana 7 b c  +  = a
+5 ( 2 )
+a1 10  + ceva  * [10]vec  +  + ana 7 b c  +  = a
 1 i 5 i 1  +  = i
 c b  +  = a
 mara ana maria bianca  +  = simona
 fi 1  +  = fi
-zi noapte vec = a.b
-vec = 52 ( 5 )
+zi noapte [17]vec = a.b
+[18]vec = 52 ( 5 )
 b.fct  = a
 a Eval  = a
 b TypeOf 
