@@ -12,13 +12,10 @@
 "for" {return FOR;}
 "end_for" {return EFOR;}
 "do" {return DO;}
-"return" {return RET;}
 "while" {return WHILE;}
 "end_while" {return EWHILE;}
 "begin_clasa" {return CLASS;}
 "end_clasa" {return ECLASS;}
-"begin_function" {return FCT;}
-"end_function" {return EFCT;}
 "begin_main" {return BGIN;}
 "end_main" {return END;}
 "Eval" {return EVAL;}

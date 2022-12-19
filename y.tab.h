@@ -67,10 +67,7 @@ extern int yydebug;
     DO = 273,
     EVAL = 274,
     TYPEOF = 275,
-    FCT = 276,
-    EFCT = 277,
-    RET = 278,
-    NR = 279
+    NR = 276
   };
 #endif
 /* Tokens.  */
@@ -92,10 +89,7 @@ extern int yydebug;
 #define DO 273
 #define EVAL 274
 #define TYPEOF 275
-#define FCT 276
-#define EFCT 277
-#define RET 278
-#define NR 279
+#define NR 276
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -106,7 +100,7 @@ union YYSTYPE
      int intval;
      char* strval;
 
-#line 110 "y.tab.h"
+#line 104 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
