@@ -79,8 +79,22 @@ extern char* yytext;
 extern int yylineno;
 char buff[100];
 int fd, fd1;
+struct informatii{
+      int int_val;
+      char string_val[500];
+      float float_val;
+      char char_val;
+      int type;
+};
 
-#line 84 "y.tab.c"
+struct param{
+      char nume[100];
+      struct informatii info;
+}symbolTable[100];
+
+void initialize();
+
+#line 98 "y.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -174,12 +188,12 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 14 "compilator.y"
+#line 28 "compilator.y"
 
      int intval;
      char* strval;
 
-#line 183 "y.tab.c"
+#line 197 "y.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -556,13 +570,13 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    24,    24,    27,    30,    33,    34,    37,    38,    41,
-      42,    45,    46,    47,    50,    51,    54,    57,    58,    59,
-      62,    63,    66,    67,    70,    71,    74,    75,    78,    82,
-      86,    87,    88,    89,    90,    91,    95,    96,    97,    98,
-      99,   100,   100,   103,   106,   107,   110,   112,   115,   116,
-     117,   118,   119,   120,   121,   122,   123,   124,   125,   126,
-     129,   129,   130
+       0,    38,    38,    41,    44,    47,    48,    51,    52,    55,
+      56,    59,    60,    61,    64,    65,    68,    71,    72,    73,
+      76,    77,    80,    81,    84,    85,    88,    89,    92,    96,
+     100,   101,   102,   103,   104,   105,   109,   110,   111,   112,
+     113,   114,   114,   117,   120,   121,   124,   126,   129,   130,
+     131,   132,   133,   134,   135,   136,   137,   138,   139,   140,
+     143,   143,   144
 };
 #endif
 
@@ -1475,157 +1489,157 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 24 "compilator.y"
+#line 38 "compilator.y"
                         {printf("program corect sintactic\n");}
-#line 1481 "y.tab.c"
+#line 1495 "y.tab.c"
     break;
 
   case 11:
-#line 45 "compilator.y"
+#line 59 "compilator.y"
                                    { snprintf(buff,100,"(%s)\n", (yyvsp[-1].strval)); write(fd, buff, strlen(buff));}
-#line 1487 "y.tab.c"
+#line 1501 "y.tab.c"
     break;
 
   case 12:
-#line 46 "compilator.y"
+#line 60 "compilator.y"
                                    { snprintf(buff,100,"%s (%s)\n",(yyvsp[-1].strval), (yyvsp[-2].strval)); write(fd, buff, strlen(buff));}
-#line 1493 "y.tab.c"
+#line 1507 "y.tab.c"
     break;
 
   case 14:
-#line 50 "compilator.y"
+#line 64 "compilator.y"
                                                { snprintf(buff,100,"[FUNCTION] %s (%s) \n",(yyvsp[-4].strval), (yyvsp[-3].strval)); write(fd1, buff, strlen(buff));}
-#line 1499 "y.tab.c"
+#line 1513 "y.tab.c"
     break;
 
   case 15:
-#line 51 "compilator.y"
+#line 65 "compilator.y"
                                    { snprintf(buff,100,"[FUNCTION] %s (%s) \n",(yyvsp[-3].strval), (yyvsp[-2].strval)); write(fd1, buff, strlen(buff));}
-#line 1505 "y.tab.c"
+#line 1519 "y.tab.c"
     break;
 
   case 20:
-#line 62 "compilator.y"
+#line 76 "compilator.y"
                    { snprintf(buff,100,"[%d]",(yyvsp[-1].intval)); write(fd, buff, strlen(buff));}
-#line 1511 "y.tab.c"
+#line 1525 "y.tab.c"
     break;
 
   case 22:
-#line 66 "compilator.y"
+#line 80 "compilator.y"
                      { snprintf(buff,100,"[%d]",(yyvsp[-1].intval)); write(fd, buff, strlen(buff));}
-#line 1517 "y.tab.c"
+#line 1531 "y.tab.c"
     break;
 
   case 24:
-#line 70 "compilator.y"
+#line 84 "compilator.y"
               { snprintf(buff,100,"%s ",(yyvsp[0].strval)); write(fd, buff, strlen(buff));}
-#line 1523 "y.tab.c"
+#line 1537 "y.tab.c"
     break;
 
   case 25:
-#line 71 "compilator.y"
+#line 85 "compilator.y"
                            { snprintf(buff,100,"%s ",(yyvsp[-2].strval)); write(fd, buff, strlen(buff));}
-#line 1529 "y.tab.c"
+#line 1543 "y.tab.c"
     break;
 
   case 28:
-#line 78 "compilator.y"
+#line 92 "compilator.y"
                 { snprintf(buff,100,"%s (%s) ",(yyvsp[-1].strval), (yyvsp[0].strval)); write(fd1, buff, strlen(buff));}
-#line 1535 "y.tab.c"
+#line 1549 "y.tab.c"
     break;
 
   case 36:
-#line 95 "compilator.y"
+#line 109 "compilator.y"
                        { snprintf(buff,100," = %s\n", (yyvsp[-2].strval)); write(fd, buff, strlen(buff));}
-#line 1541 "y.tab.c"
+#line 1555 "y.tab.c"
     break;
 
   case 38:
-#line 97 "compilator.y"
+#line 111 "compilator.y"
                             { snprintf(buff,100,"TypeOf \n"); write(fd, buff, strlen(buff));}
-#line 1547 "y.tab.c"
+#line 1561 "y.tab.c"
     break;
 
   case 39:
-#line 98 "compilator.y"
+#line 112 "compilator.y"
                               { snprintf(buff,100,"= %s.%s\n", (yyvsp[-4].strval), (yyvsp[-2].strval)); write(fd, buff, strlen(buff));}
-#line 1553 "y.tab.c"
+#line 1567 "y.tab.c"
     break;
 
   case 41:
-#line 100 "compilator.y"
+#line 114 "compilator.y"
                              { snprintf(buff,100,"%s = ",(yyvsp[-2].strval)); write(fd, buff, strlen(buff));}
-#line 1559 "y.tab.c"
+#line 1573 "y.tab.c"
     break;
 
   case 48:
-#line 115 "compilator.y"
+#line 129 "compilator.y"
             { snprintf(buff,100," + "); write(fd, buff, strlen(buff));}
-#line 1565 "y.tab.c"
+#line 1579 "y.tab.c"
     break;
 
   case 49:
-#line 116 "compilator.y"
+#line 130 "compilator.y"
             { snprintf(buff,100," - "); write(fd, buff, strlen(buff));}
-#line 1571 "y.tab.c"
+#line 1585 "y.tab.c"
     break;
 
   case 50:
-#line 117 "compilator.y"
+#line 131 "compilator.y"
             { snprintf(buff,100," * "); write(fd, buff, strlen(buff));}
-#line 1577 "y.tab.c"
+#line 1591 "y.tab.c"
     break;
 
   case 51:
-#line 118 "compilator.y"
+#line 132 "compilator.y"
             { snprintf(buff,100," / "); write(fd, buff, strlen(buff));}
-#line 1583 "y.tab.c"
+#line 1597 "y.tab.c"
     break;
 
   case 53:
-#line 120 "compilator.y"
+#line 134 "compilator.y"
        { snprintf(buff,100,"%s ",(yyvsp[0].strval)); write(fd, buff, strlen(buff));}
-#line 1589 "y.tab.c"
+#line 1603 "y.tab.c"
     break;
 
   case 54:
-#line 121 "compilator.y"
+#line 135 "compilator.y"
        { snprintf(buff,100,"%d ",(yyvsp[0].intval)); write(fd, buff, strlen(buff));}
-#line 1595 "y.tab.c"
+#line 1609 "y.tab.c"
     break;
 
   case 55:
-#line 122 "compilator.y"
+#line 136 "compilator.y"
                { snprintf(buff,100,"%s ",(yyvsp[-1].strval)); write(fd, buff, strlen(buff));}
-#line 1601 "y.tab.c"
+#line 1615 "y.tab.c"
     break;
 
   case 58:
-#line 125 "compilator.y"
+#line 139 "compilator.y"
                                  { snprintf(buff,100,"%s.%s ", (yyvsp[-5].strval), (yyvsp[-3].strval)); write(fd, buff, strlen(buff));}
-#line 1607 "y.tab.c"
+#line 1621 "y.tab.c"
     break;
 
   case 59:
-#line 126 "compilator.y"
+#line 140 "compilator.y"
                    { snprintf(buff,100,"Eval "); write(fd, buff, strlen(buff));}
-#line 1613 "y.tab.c"
+#line 1627 "y.tab.c"
     break;
 
   case 60:
-#line 129 "compilator.y"
+#line 143 "compilator.y"
              { snprintf(buff,100,"( "); write(fd, buff, strlen(buff));}
-#line 1619 "y.tab.c"
+#line 1633 "y.tab.c"
     break;
 
   case 61:
-#line 129 "compilator.y"
+#line 143 "compilator.y"
                                                                           { snprintf(buff,100,")\n"); write(fd, buff, strlen(buff));}
-#line 1625 "y.tab.c"
+#line 1639 "y.tab.c"
     break;
 
 
-#line 1629 "y.tab.c"
+#line 1643 "y.tab.c"
 
       default: break;
     }
@@ -1857,7 +1871,65 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 132 "compilator.y"
+#line 146 "compilator.y"
+
+
+/* int findType(char *type)
+{
+      int tip;
+	if(!strcmp("int",type))
+            tip = INT;
+      else
+            if(!strcmp("float",type))
+                  tip = FLOAT;
+            else
+                  if(!strcmp("char",type))
+                        tip = CHAR;
+                  else
+                        if(!strcmp("string",type))
+                              tip = STRING;
+                        else
+                              if(!strcmp("bool",type))
+                                    tip = BOOL;
+      return tip;
+} */
+
+void initialize()
+{
+      for(int i = 0; i < 100; i++)
+      {
+            bzero(&symbolTable[i].nume, sizeof(symbolTable[i].nume));
+            symbolTable[i].info.type = -1;
+            symbolTable[i].info.int_val = 0;
+            symbolTable[i].info.float_val = 0;
+            strcpy(symbolTable[i].info.string_val, "");
+            symbolTable[i].info.char_val = '\0';
+      }
+}
+
+int calcul(struct informatii *info1, int operator, struct informatii *info2)
+{
+      switch(operator)
+      {
+            case 1:
+                  return info1->int_val + info2->int_val;
+			break;
+            case 2:
+                  return info1->int_val + info2->int_val;
+			break;
+            case 3:
+                  return info1->int_val + info2->int_val;
+			break;
+            case 4:
+                  return info1->int_val + info2->int_val;
+			break;
+      }
+}
+
+void eval(struct informatii *inf)
+{
+	printf("Valoarea este: %d\n", inf->int_val);
+}
 
 int yyerror(char * s)
 {
@@ -1868,6 +1940,7 @@ int main(int argc, char** argv)
 {
      fd = open ("symbol_table.txt", O_RDWR|O_TRUNC);
      fd1 = open ("symbol_table_functions.txt", O_RDWR|O_TRUNC);
+     initialize();
      yyin = fopen(argv[1],"r");
      yyparse();
 } 

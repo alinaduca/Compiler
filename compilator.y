@@ -10,6 +10,20 @@ extern char* yytext;
 extern int yylineno;
 char buff[100];
 int fd, fd1;
+struct informatii{
+      int int_val;
+      char string_val[500];
+      float float_val;
+      char char_val;
+      int type;
+};
+
+struct param{
+      char nume[100];
+      struct informatii info;
+}symbolTable[100];
+
+void initialize();
 %}
 %union {
      int intval;
@@ -130,6 +144,64 @@ lista_apel : { snprintf(buff,100,"( "); write(fd, buff, strlen(buff));} e { snpr
            | lista_apel ',' e
            ;
 %%
+
+/* int findType(char *type)
+{
+      int tip;
+	if(!strcmp("int",type))
+            tip = INT;
+      else
+            if(!strcmp("float",type))
+                  tip = FLOAT;
+            else
+                  if(!strcmp("char",type))
+                        tip = CHAR;
+                  else
+                        if(!strcmp("string",type))
+                              tip = STRING;
+                        else
+                              if(!strcmp("bool",type))
+                                    tip = BOOL;
+      return tip;
+} */
+
+void initialize()
+{
+      for(int i = 0; i < 100; i++)
+      {
+            bzero(&symbolTable[i].nume, sizeof(symbolTable[i].nume));
+            symbolTable[i].info.type = -1;
+            symbolTable[i].info.int_val = 0;
+            symbolTable[i].info.float_val = 0;
+            strcpy(symbolTable[i].info.string_val, "");
+            symbolTable[i].info.char_val = '\0';
+      }
+}
+
+int calcul(struct informatii *info1, int operator, struct informatii *info2)
+{
+      switch(operator)
+      {
+            case 1:
+                  return info1->int_val + info2->int_val;
+			break;
+            case 2:
+                  return info1->int_val + info2->int_val;
+			break;
+            case 3:
+                  return info1->int_val + info2->int_val;
+			break;
+            case 4:
+                  return info1->int_val + info2->int_val;
+			break;
+      }
+}
+
+void eval(struct informatii *inf)
+{
+	printf("Valoarea este: %d\n", inf->int_val);
+}
+
 int yyerror(char * s)
 {
      printf("eroare: %s la linia:%d\n",s,yylineno);
@@ -139,6 +211,7 @@ int main(int argc, char** argv)
 {
      fd = open ("symbol_table.txt", O_RDWR|O_TRUNC);
      fd1 = open ("symbol_table_functions.txt", O_RDWR|O_TRUNC);
+     initialize();
      yyin = fopen(argv[1],"r");
      yyparse();
 } 
