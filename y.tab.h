@@ -101,12 +101,11 @@ union YYSTYPE
 {
 #line 28 "compilator.y"
 
-
      float floatval;
      int intval;
      char* strval;
 
-#line 110 "y.tab.h"
+#line 109 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

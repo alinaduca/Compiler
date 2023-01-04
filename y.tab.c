@@ -194,12 +194,11 @@ union YYSTYPE
 {
 #line 28 "compilator.y"
 
-
      float floatval;
      int intval;
      char* strval;
 
-#line 203 "y.tab.c"
+#line 202 "y.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -576,13 +575,13 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    41,    41,    44,    47,    50,    51,    54,    55,    58,
-      59,    62,    63,    64,    67,    68,    71,    74,    75,    76,
-      79,    80,    83,    84,    87,    88,    91,    92,    95,    99,
-     103,   104,   105,   106,   107,   108,   112,   113,   114,   115,
-     116,   117,   117,   120,   123,   124,   127,   128,   131,   133,
-     136,   137,   138,   139,   140,   141,   142,   143,   144,   145,
-     146,   147,   148,   151,   151,   152
+       0,    40,    40,    43,    46,    49,    50,    53,    54,    57,
+      58,    61,    62,    63,    66,    67,    70,    73,    74,    75,
+      78,    79,    82,    83,    86,    87,    90,    91,    94,    98,
+     102,   103,   104,   105,   106,   107,   111,   112,   113,   114,
+     115,   116,   116,   119,   122,   123,   126,   127,   130,   132,
+     135,   136,   137,   138,   139,   140,   141,   142,   143,   144,
+     145,   146,   147,   150,   150,   151
 };
 #endif
 
@@ -1487,163 +1486,163 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 41 "compilator.y"
+#line 40 "compilator.y"
                         {printf("program corect sintactic\n");}
-#line 1493 "y.tab.c"
+#line 1492 "y.tab.c"
     break;
 
   case 11:
-#line 62 "compilator.y"
+#line 61 "compilator.y"
                                    { snprintf(buff,100,"(%s)\n", (yyvsp[-1].strval)); write(fd, buff, strlen(buff));}
-#line 1499 "y.tab.c"
+#line 1498 "y.tab.c"
     break;
 
   case 12:
-#line 63 "compilator.y"
+#line 62 "compilator.y"
                                    { snprintf(buff,100,"%s (%s)\n",(yyvsp[-1].strval), (yyvsp[-2].strval)); write(fd, buff, strlen(buff));}
-#line 1505 "y.tab.c"
+#line 1504 "y.tab.c"
     break;
 
   case 14:
-#line 67 "compilator.y"
+#line 66 "compilator.y"
                                                { snprintf(buff,100,"[FUNCTION] %s (%s) \n",(yyvsp[-4].strval), (yyvsp[-3].strval)); write(fd1, buff, strlen(buff));}
-#line 1511 "y.tab.c"
+#line 1510 "y.tab.c"
     break;
 
   case 15:
-#line 68 "compilator.y"
+#line 67 "compilator.y"
                                    { snprintf(buff,100,"[FUNCTION] %s (%s) \n",(yyvsp[-3].strval), (yyvsp[-2].strval)); write(fd1, buff, strlen(buff));}
-#line 1517 "y.tab.c"
+#line 1516 "y.tab.c"
     break;
 
   case 20:
-#line 79 "compilator.y"
+#line 78 "compilator.y"
                    { snprintf(buff,100,"[%d]",(yyvsp[-1].intval)); write(fd, buff, strlen(buff));}
-#line 1523 "y.tab.c"
+#line 1522 "y.tab.c"
     break;
 
   case 22:
-#line 83 "compilator.y"
+#line 82 "compilator.y"
                      { snprintf(buff,100,"[%d]",(yyvsp[-1].intval)); write(fd, buff, strlen(buff));}
-#line 1529 "y.tab.c"
+#line 1528 "y.tab.c"
     break;
 
   case 24:
-#line 87 "compilator.y"
+#line 86 "compilator.y"
               { snprintf(buff,100,"%s ",(yyvsp[0].strval)); write(fd, buff, strlen(buff));}
-#line 1535 "y.tab.c"
+#line 1534 "y.tab.c"
     break;
 
   case 25:
-#line 88 "compilator.y"
+#line 87 "compilator.y"
                            { snprintf(buff,100,"%s ",(yyvsp[-2].strval)); write(fd, buff, strlen(buff));}
-#line 1541 "y.tab.c"
+#line 1540 "y.tab.c"
     break;
 
   case 28:
-#line 95 "compilator.y"
+#line 94 "compilator.y"
                 { snprintf(buff,100,"%s (%s) ",(yyvsp[-1].strval), (yyvsp[0].strval)); write(fd1, buff, strlen(buff));}
-#line 1547 "y.tab.c"
+#line 1546 "y.tab.c"
     break;
 
   case 36:
-#line 112 "compilator.y"
+#line 111 "compilator.y"
                        { snprintf(buff,100," = %s\n", (yyvsp[-2].strval)); write(fd, buff, strlen(buff));}
-#line 1553 "y.tab.c"
+#line 1552 "y.tab.c"
     break;
 
   case 38:
-#line 114 "compilator.y"
+#line 113 "compilator.y"
                             { snprintf(buff,100,"TypeOf \n"); write(fd, buff, strlen(buff));}
-#line 1559 "y.tab.c"
+#line 1558 "y.tab.c"
     break;
 
   case 39:
-#line 115 "compilator.y"
+#line 114 "compilator.y"
                               { snprintf(buff,100,"= %s.%s\n", (yyvsp[-4].strval), (yyvsp[-2].strval)); write(fd, buff, strlen(buff));}
-#line 1565 "y.tab.c"
+#line 1564 "y.tab.c"
     break;
 
   case 41:
-#line 117 "compilator.y"
+#line 116 "compilator.y"
                              { snprintf(buff,100,"%s = ",(yyvsp[-2].strval)); write(fd, buff, strlen(buff));}
-#line 1571 "y.tab.c"
+#line 1570 "y.tab.c"
     break;
 
   case 50:
-#line 136 "compilator.y"
+#line 135 "compilator.y"
             { snprintf(buff,100," + "); write(fd, buff, strlen(buff));}
-#line 1577 "y.tab.c"
+#line 1576 "y.tab.c"
     break;
 
   case 51:
-#line 137 "compilator.y"
+#line 136 "compilator.y"
             { snprintf(buff,100," - "); write(fd, buff, strlen(buff));}
-#line 1583 "y.tab.c"
+#line 1582 "y.tab.c"
     break;
 
   case 52:
-#line 138 "compilator.y"
+#line 137 "compilator.y"
             { snprintf(buff,100," * "); write(fd, buff, strlen(buff));}
-#line 1589 "y.tab.c"
+#line 1588 "y.tab.c"
     break;
 
   case 53:
-#line 139 "compilator.y"
+#line 138 "compilator.y"
             { snprintf(buff,100," / "); write(fd, buff, strlen(buff));}
-#line 1595 "y.tab.c"
+#line 1594 "y.tab.c"
     break;
 
   case 55:
-#line 141 "compilator.y"
+#line 140 "compilator.y"
        { snprintf(buff,100,"%s ",(yyvsp[0].strval)); write(fd, buff, strlen(buff));}
-#line 1601 "y.tab.c"
+#line 1600 "y.tab.c"
     break;
 
   case 56:
-#line 142 "compilator.y"
+#line 141 "compilator.y"
        { snprintf(buff,100,"%d ",(yyvsp[0].intval)); write(fd, buff, strlen(buff));}
-#line 1607 "y.tab.c"
+#line 1606 "y.tab.c"
     break;
 
   case 57:
-#line 143 "compilator.y"
-             { snprintf(buff,100,"%d ",(yyvsp[0].floatval)); write(fd, buff, strlen(buff));}
-#line 1613 "y.tab.c"
+#line 142 "compilator.y"
+             { snprintf(buff,100,"%f ",(yyvsp[0].floatval)); write(fd, buff, strlen(buff));}
+#line 1612 "y.tab.c"
     break;
 
   case 58:
-#line 144 "compilator.y"
+#line 143 "compilator.y"
                { snprintf(buff,100,"%s ",(yyvsp[-1].strval)); write(fd, buff, strlen(buff));}
-#line 1619 "y.tab.c"
+#line 1618 "y.tab.c"
     break;
 
   case 61:
-#line 147 "compilator.y"
+#line 146 "compilator.y"
                                  { snprintf(buff,100,"%s.%s ", (yyvsp[-5].strval), (yyvsp[-3].strval)); write(fd, buff, strlen(buff));}
-#line 1625 "y.tab.c"
+#line 1624 "y.tab.c"
     break;
 
   case 62:
-#line 148 "compilator.y"
+#line 147 "compilator.y"
                    { snprintf(buff,100,"Eval "); write(fd, buff, strlen(buff));}
-#line 1631 "y.tab.c"
+#line 1630 "y.tab.c"
     break;
 
   case 63:
-#line 151 "compilator.y"
+#line 150 "compilator.y"
              { snprintf(buff,100,"( "); write(fd, buff, strlen(buff));}
-#line 1637 "y.tab.c"
+#line 1636 "y.tab.c"
     break;
 
   case 64:
-#line 151 "compilator.y"
+#line 150 "compilator.y"
                                                                           { snprintf(buff,100,")\n"); write(fd, buff, strlen(buff));}
-#line 1643 "y.tab.c"
+#line 1642 "y.tab.c"
     break;
 
 
-#line 1647 "y.tab.c"
+#line 1646 "y.tab.c"
 
       default: break;
     }
@@ -1875,7 +1874,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 154 "compilator.y"
+#line 153 "compilator.y"
 
 
 /* int findType(char *type)

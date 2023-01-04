@@ -26,7 +26,6 @@ struct param{
 void initialize();
 %}
 %union {
-
      float floatval;
      int intval;
      char* strval;
@@ -140,7 +139,7 @@ e : e '+' e { snprintf(buff,100," + "); write(fd, buff, strlen(buff));}
   | '(' e ')'
   | ID { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
   | NR { snprintf(buff,100,"%d ",$1); write(fd, buff, strlen(buff));}
-  | NR_FLOAT { snprintf(buff,100,"%d ",$1); write(fd, buff, strlen(buff));}
+  | NR_FLOAT { snprintf(buff,100,"%f ",$1); write(fd, buff, strlen(buff));}
   | ID indexes { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
   | ID '(' lista_apel ')'
   | ID '.' ID

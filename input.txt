@@ -18,7 +18,7 @@ begin_main
     biblioteca.carte=5;
     exist = biblioteca.existaCarte(ISBN);
     program(a1 + 2*5, 5, program(2,a1+10)*ceva+vec[10] + biblioteca.carte);
-    if ( ana > 7) 
+    if ( ana > 7 && ana < 2) 
         a = b + c;
     end_if
     for(int i = 1; i < 5; i=i+1)
