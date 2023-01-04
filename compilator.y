@@ -26,11 +26,14 @@ struct param{
 void initialize();
 %}
 %union {
+
+     float floatval;
      int intval;
      char* strval;
 }
 %token <strval> ID TIP ASSIGN BGIN END CLASS ECLASS IF EIF OPR FOR EFOR CONSTANT WHILE EWHILE DO EVAL TYPEOF BOOLOPR
 %token <intval> NR
+%token <floatval> NR_FLOAT
 %start progr
 %left '+' '-'
 %left '*' '/'
@@ -137,6 +140,7 @@ e : e '+' e { snprintf(buff,100," + "); write(fd, buff, strlen(buff));}
   | '(' e ')'
   | ID { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
   | NR { snprintf(buff,100,"%d ",$1); write(fd, buff, strlen(buff));}
+  | NR_FLOAT { snprintf(buff,100,"%d ",$1); write(fd, buff, strlen(buff));}
   | ID indexes { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
   | ID '(' lista_apel ')'
   | ID '.' ID

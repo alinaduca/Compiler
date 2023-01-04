@@ -68,7 +68,8 @@ extern int yydebug;
     EVAL = 274,
     TYPEOF = 275,
     BOOLOPR = 276,
-    NR = 277
+    NR = 277,
+    NR_FLOAT = 278
   };
 #endif
 /* Tokens.  */
@@ -92,6 +93,7 @@ extern int yydebug;
 #define TYPEOF 275
 #define BOOLOPR 276
 #define NR 277
+#define NR_FLOAT 278
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -99,10 +101,12 @@ union YYSTYPE
 {
 #line 28 "compilator.y"
 
+
+     float floatval;
      int intval;
      char* strval;
 
-#line 106 "y.tab.h"
+#line 110 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
