@@ -29,7 +29,7 @@ void initialize();
      int intval;
      char* strval;
 }
-%token <strval> ID TIP ASSIGN BGIN END CLASS ECLASS IF EIF OPR FOR EFOR CONSTANT WHILE EWHILE DO EVAL TYPEOF
+%token <strval> ID TIP ASSIGN BGIN END CLASS ECLASS IF EIF OPR FOR EFOR CONSTANT WHILE EWHILE DO EVAL TYPEOF BOOLOPR
 %token <intval> NR
 %start progr
 %left '+' '-'
@@ -114,16 +114,20 @@ statement: ID ASSIGN e { snprintf(buff,100," = %s\n", $1); write(fd, buff, strle
          | ID indexes ASSIGN { snprintf(buff,100,"%s = ",$1); write(fd, buff, strlen(buff));} e
          ;
 
-if : IF '(' e OPR e ')' list EIF
+if : IF '(' cond ')' list EIF
    ;
 
-for : FOR '(' TIP ID ASSIGN e ';' e OPR e ';' statement ')' list EFOR
+cond : e OPR e
+     | e OPR e BOOLOPR cond
+     ;
+
+for : FOR '(' TIP ID ASSIGN e ';' cond ';' statement ')' list EFOR
     | FOR '(' ID ASSIGN e ';' e OPR e ';' statement ')' list EFOR
     ;
 
-do : DO list WHILE '(' e OPR e ')' ';'
+do : DO list WHILE '(' cond ')' ';'
 
-while : WHILE '(' e OPR e ')' list EWHILE
+while : WHILE '(' cond ')' list EWHILE
       ;
 
 e : e '+' e { snprintf(buff,100," + "); write(fd, buff, strlen(buff));}

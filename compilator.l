@@ -6,7 +6,8 @@
 %option noyywrap
 %%
 "int"|"float"|"char"|"string"|"bool" {yylval.strval=strdup(yytext);return TIP;}
-">"|"<"|"=="|"!="|">="|"<="|"||"|"&&" {return OPR;}
+">"|"<"|"=="|"!="|">="|"<=" {return OPR;}
+"||"|"&&" {return BOOLOPR;}
 "if" {return IF;}
 "end_if" {return EIF;}
 "for" {return FOR;}
