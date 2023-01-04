@@ -145,33 +145,33 @@ lista_apel : { /*snprintf(buff,100,"( "); write(fd, buff, strlen(buff));*/} e {/
 
 int calcul(struct informatii *info1, int operator, struct informatii *info2)
 {
-      switch(operator)
-      {
-            case 1:
-                  return info1->int_val + info2->int_val;
+    switch(operator)
+    {
+        case 1:
+            return info1->int_val + info2->int_val;
 			break;
-            case 2:
-                  return info1->int_val + info2->int_val;
-			break;
-            case 3:
-                  return info1->int_val + info2->int_val;
-			break;
-            case 4:
-                  return info1->int_val + info2->int_val;
-			break;
-      }
+        case 2:
+            return info1->int_val + info2->int_val;
+            break;
+        case 3:
+            return info1->int_val + info2->int_val;
+            break;
+        case 4:
+            return info1->int_val + info2->int_val;
+            break;
+    }
 }
 
 int yyerror(char * s)
 {
-     printf("eroare: %s la linia:%d\n",s,yylineno);
+    printf("eroare: %s la linia:%d\n",s,yylineno);
 }
 
 int main(int argc, char** argv)
 {
-     fd = open("symbol_table.txt", O_RDWR|O_TRUNC);
-     fd1 = open("symbol_table_functions.txt", O_RDWR|O_TRUNC);
-     initialize();
-     yyin = fopen(argv[1],"r");
-     yyparse();
+    fd = open("symbol_table.txt", O_RDWR|O_TRUNC);
+    fd1 = open("symbol_table_functions.txt", O_RDWR|O_TRUNC);
+    initialize();
+    yyin = fopen(argv[1],"r");
+    yyparse();
 } 
