@@ -1,29 +1,8 @@
 %{
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
-#include <fcntl.h>
-#include <unistd.h>
+#include "compilator.h"
 extern FILE* yyin;
 extern char* yytext;
 extern int yylineno;
-char buff[100];
-int fd, fd1;
-struct informatii{
-      int int_val;
-      char string_val[500];
-      float float_val;
-      char char_val;
-      int type;
-};
-
-struct param{
-      char nume[100];
-      struct informatii info;
-}symbolTable[100];
-
-void initialize();
 %}
 %union {
      float floatval;
@@ -152,39 +131,6 @@ lista_apel : { snprintf(buff,100,"( "); write(fd, buff, strlen(buff));} e { snpr
            ;
 %%
 
-/* int findType(char *type)
-{
-      int tip;
-	if(!strcmp("int",type))
-            tip = INT;
-      else
-            if(!strcmp("float",type))
-                  tip = FLOAT;
-            else
-                  if(!strcmp("char",type))
-                        tip = CHAR;
-                  else
-                        if(!strcmp("string",type))
-                              tip = STRING;
-                        else
-                              if(!strcmp("bool",type))
-                                    tip = BOOL;
-      return tip;
-} */
-
-void initialize()
-{
-      for(int i = 0; i < 100; i++)
-      {
-            bzero(&symbolTable[i].nume, sizeof(symbolTable[i].nume));
-            symbolTable[i].info.type = -1;
-            symbolTable[i].info.int_val = 0;
-            symbolTable[i].info.float_val = 0;
-            strcpy(symbolTable[i].info.string_val, "");
-            symbolTable[i].info.char_val = '\0';
-      }
-}
-
 int calcul(struct informatii *info1, int operator, struct informatii *info2)
 {
       switch(operator)
@@ -202,11 +148,6 @@ int calcul(struct informatii *info1, int operator, struct informatii *info2)
                   return info1->int_val + info2->int_val;
 			break;
       }
-}
-
-void eval(struct informatii *inf)
-{
-	printf("Valoarea este: %d\n", inf->int_val);
 }
 
 int yyerror(char * s)
