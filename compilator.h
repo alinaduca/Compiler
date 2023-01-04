@@ -37,3 +37,8 @@ void eval(struct informatii *inf)
 {
 	printf("Valoarea este: %d\n", inf->int_val);
 }
+
+void Verif(char *id)
+{
+    
+}

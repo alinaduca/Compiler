@@ -9,7 +9,10 @@ extern int yylineno;
      int intval;
      char* strval;
 }
-%token <strval> ID TIP ASSIGN BGIN END CLASS ECLASS IF EIF OPR FOR EFOR CONSTANT WHILE EWHILE DO EVAL TYPEOF BOOLOPR
+%token <strval> ID
+%token <strval> TIP ASSIGN BGIN END CLASS ECLASS IF EIF
+%token <strval> OPR FOR EFOR CONSTANT WHILE EWHILE DO EVAL TYPEOF
+%token <strval> BOOLOPR
 %token <intval> NR
 %token <floatval> NR_FLOAT
 %start progr
@@ -38,7 +41,6 @@ sectiunea3 : clasa
            ;
 
 declaratieVariabila : TIP lista_id { snprintf(buff,100,"(%s)\n", $1); write(fd, buff, strlen(buff));}
-                    | TIP ID sizes { snprintf(buff,100,"%s (%s)\n",$2, $1); write(fd, buff, strlen(buff));}
                     | CONSTANT TIP lista_id
                     ;
 
@@ -49,21 +51,31 @@ declaratieFunctie : TIP ID '(' lista_param ')' { snprintf(buff,100,"[FUNCTION] %
 clasa : CLASS ID interior_clasa ECLASS 
       ;
 
-interior_clasa : sectiunea1 sectiunea2
-               | sectiunea1
-               | sectiunea2
+sectiuneaclasa1 : declaratieVariabila ';'
+                | sectiuneaclasa1 declaratieVariabila ';'
+                ;
+
+sectiuneaclasa2 : declaratieFunctie ';'
+           | sectiuneaclasa2 declaratieFunctie ';'
+           ;
+
+interior_clasa : sectiuneaclasa1 sectiuneaclasa2
+               | sectiuneaclasa1
+               | sectiuneaclasa2
                ;
 
 sizes : '[' NR ']' { snprintf(buff,100,"[%d]",$2); write(fd, buff, strlen(buff));}
       | '[' NR ']' sizes 
       ;
 
-indexes : '[' NR ']' { snprintf(buff,100,"[%d]",$2); write(fd, buff, strlen(buff));}
+indexes : '[' NR ']' {/* snprintf(buff,100,"[%d]",$2); write(fd, buff, strlen(buff));*/}
         | '[' NR ']' indexes
         ;
 
 lista_id : ID { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
+         | ID sizes { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
          | ID ',' lista_id { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
+         | ID sizes ',' lista_id { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
          ;
 
 lista_param : param
@@ -87,12 +99,12 @@ list : statement ';'
      ;
 
 /* instructiune */
-statement: ID ASSIGN e { snprintf(buff,100," = %s\n", $1); write(fd, buff, strlen(buff));}
+statement: ID ASSIGN e { /*snprintf(buff,100," = %s\n", $1); write(fd, buff, strlen(buff));*/}
          | ID '(' lista_apel ')'
-         | TYPEOF '(' e ')' { snprintf(buff,100,"TypeOf \n"); write(fd, buff, strlen(buff));}
-         | ID '.' ID ASSIGN e { snprintf(buff,100,"= %s.%s\n", $1, $3); write(fd, buff, strlen(buff));}
+         | TYPEOF '(' e ')' {/* snprintf(buff,100,"TypeOf \n"); write(fd, buff, strlen(buff));*/}
+         | ID '.' ID ASSIGN e {/* snprintf(buff,100,"= %s.%s\n", $1, $3); write(fd, buff, strlen(buff));*/}
          | ID '.' ID '(' lista_apel ')'
-         | ID indexes ASSIGN { snprintf(buff,100,"%s = ",$1); write(fd, buff, strlen(buff));} e
+         | ID indexes ASSIGN { /*snprintf(buff,100,"%s = ",$1); write(fd, buff, strlen(buff));*/} e
          ;
 
 if : IF '(' cond ')' list EIF
@@ -111,22 +123,22 @@ do : DO list WHILE '(' cond ')' ';'
 while : WHILE '(' cond ')' list EWHILE
       ;
 
-e : e '+' e { snprintf(buff,100," + "); write(fd, buff, strlen(buff));}
-  | e '-' e { snprintf(buff,100," - "); write(fd, buff, strlen(buff));}
-  | e '*' e { snprintf(buff,100," * "); write(fd, buff, strlen(buff));}
-  | e '/' e { snprintf(buff,100," / "); write(fd, buff, strlen(buff));}
+e : e '+' e {/* snprintf(buff,100," + "); write(fd, buff, strlen(buff));*/}
+  | e '-' e {/* snprintf(buff,100," - "); write(fd, buff, strlen(buff));*/}
+  | e '*' e {/* snprintf(buff,100," * "); write(fd, buff, strlen(buff));*/}
+  | e '/' e {/* snprintf(buff,100," / "); write(fd, buff, strlen(buff));*/}
   | '(' e ')'
-  | ID { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
-  | NR { snprintf(buff,100,"%d ",$1); write(fd, buff, strlen(buff));}
-  | NR_FLOAT { snprintf(buff,100,"%f ",$1); write(fd, buff, strlen(buff));}
-  | ID indexes { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
+  | ID { Verif($1);/* snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));*/}
+  | NR {/* snprintf(buff,100,"%d ",$1); write(fd, buff, strlen(buff));*/}
+  | NR_FLOAT {/* snprintf(buff,100,"%f ",$1); write(fd, buff, strlen(buff));*/}
+  | ID indexes {/* snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));*/}
   | ID '(' lista_apel ')'
   | ID '.' ID
-  | ID '.' ID '(' lista_apel ')' { snprintf(buff,100,"%s.%s ", $1, $3); write(fd, buff, strlen(buff));}
-  | EVAL '(' e ')' { snprintf(buff,100,"Eval "); write(fd, buff, strlen(buff));}
+  | ID '.' ID '(' lista_apel ')' { /*snprintf(buff,100,"%s.%s ", $1, $3); write(fd, buff, strlen(buff));*/}
+  | EVAL '(' e ')' {/* snprintf(buff,100,"Eval "); write(fd, buff, strlen(buff));*/}
   ;
 
-lista_apel : { snprintf(buff,100,"( "); write(fd, buff, strlen(buff));} e { snprintf(buff,100,")\n"); write(fd, buff, strlen(buff));}
+lista_apel : { /*snprintf(buff,100,"( "); write(fd, buff, strlen(buff));*/} e {/* snprintf(buff,100,")\n"); write(fd, buff, strlen(buff));*/}
            | lista_apel ',' e
            ;
 %%

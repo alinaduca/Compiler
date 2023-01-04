@@ -3,22 +3,3 @@ f1 (float)
 x (bool)
 [100]yy (int)
 carte (int)
-5 a1 2  *  -  = a1
-6  = f1
-5 = biblioteca.carte
-( ISBN )
-biblioteca.existaCarte  = exist
-( a1 2.000000  + )
-5 ( 2 )
-a1 10  + ceva  * [10]vec  +  + ana 7 ana 2 b c  +  = a
-1 i 5 i 1  +  = i
-c b  +  = a
-mara ana maria bianca  +  = simona
-fi 1  +  = fi
-zi noapte [17]vec = a.b
-[18]vec = 52 ( 5 )
-b.fct  = a
-a Eval  = a
-b TypeOf 
-a1 23.000000 b1 3  *  + ( 4 )
- +  +  = a1
