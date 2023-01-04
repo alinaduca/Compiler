@@ -216,8 +216,8 @@ int yyerror(char * s)
 
 int main(int argc, char** argv)
 {
-     fd = open ("symbol_table.txt", O_RDWR|O_TRUNC);
-     fd1 = open ("symbol_table_functions.txt", O_RDWR|O_TRUNC);
+     fd = open("symbol_table.txt", O_RDWR|O_TRUNC);
+     fd1 = open("symbol_table_functions.txt", O_RDWR|O_TRUNC);
      initialize();
      yyin = fopen(argv[1],"r");
      yyparse();
