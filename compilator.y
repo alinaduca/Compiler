@@ -8,16 +8,23 @@ extern int yylineno;
      float floatval;
      int intval;
      char* strval;
+     struct AST* tree;
 }
+%token LEQ GEQ NEQ EQ
+%token AND OR
 %token <strval> ID
+%token <strval> STRING
 %token <strval> TIP ASSIGN BGIN END CLASS ECLASS IF EIF
 %token <strval> OPR FOR EFOR CONSTANT WHILE EWHILE DO EVAL TYPEOF
-%token <strval> BOOLOPR
 %token <intval> NR
 %token <floatval> NR_FLOAT
 %start progr
-%left '+' '-'
-%left '*' '/'
+%left OR
+%left AND
+%left NEQ EQ
+%left LEQ GEQ '<' '>'
+%left '-' '+'
+%left '/' '*'
 %%
 progr: sectiunea1 rest1 {printf("program corect sintactic\n");}
      ;
@@ -40,7 +47,7 @@ sectiunea3 : clasa
            | sectiunea3 clasa
            ;
 
-declaratieVariabila : TIP lista_id { snprintf(buff,100,"(%s)\n", $1); write(fd, buff, strlen(buff));}
+declaratieVariabila : TIP lista_id { snprintf(buff,100,"(%s)\n", $1); write(fd, buff, strlen(buff));addInTable($1, "tip"); }
                     | CONSTANT TIP lista_id
                     ;
 
@@ -64,18 +71,14 @@ interior_clasa : sectiuneaclasa1 sectiuneaclasa2
                | sectiuneaclasa2
                ;
 
-sizes : '[' NR ']' { snprintf(buff,100,"[%d]",$2); write(fd, buff, strlen(buff));}
-      | '[' NR ']' sizes 
-      ;
-
-indexes : '[' NR ']' {/* snprintf(buff,100,"[%d]",$2); write(fd, buff, strlen(buff));*/}
-        | '[' NR ']' indexes
-        ;
-
-lista_id : ID { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
-         | ID sizes { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
+lista_id : ID { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff)); addInTable($1, "variabila");}
+         | ID '[' NR ']' { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
          | ID ',' lista_id { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
-         | ID sizes ',' lista_id { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
+         | ID '[' NR ']' ',' lista_id { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
+         | ID ASSIGN e { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
+         | ID ASSIGN e ',' lista_id { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
+         | ID ASSIGN STRING { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
+         | ID ASSIGN STRING ',' lista_id { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
          ;
 
 lista_param : param
@@ -104,15 +107,27 @@ statement: ID ASSIGN e { /*snprintf(buff,100," = %s\n", $1); write(fd, buff, str
          | TYPEOF '(' e ')' {/* snprintf(buff,100,"TypeOf \n"); write(fd, buff, strlen(buff));*/}
          | ID '.' ID ASSIGN e {/* snprintf(buff,100,"= %s.%s\n", $1, $3); write(fd, buff, strlen(buff));*/}
          | ID '.' ID '(' lista_apel ')'
-         | ID indexes ASSIGN { /*snprintf(buff,100,"%s = ",$1); write(fd, buff, strlen(buff));*/} e
+         | ID '[' NR ']' ASSIGN { /*snprintf(buff,100,"%s = ",$1); write(fd, buff, strlen(buff));*/} e
          ;
 
 if : IF '(' cond ')' list EIF
    ;
 
-cond : e OPR e
-     | e OPR e BOOLOPR cond
+cond : e opr e
+     | e opr e boolopr cond
      ;
+
+boolopr : AND
+        | OR
+        ;
+
+opr : LEQ
+    | GEQ
+    | NEQ
+    | EQ
+    | '<'
+    | '>'
+    ;
 
 for : FOR '(' TIP ID ASSIGN e ';' cond ';' statement ')' list EFOR
     | FOR '(' ID ASSIGN e ';' e OPR e ';' statement ')' list EFOR
@@ -131,7 +146,7 @@ e : e '+' e {/* snprintf(buff,100," + "); write(fd, buff, strlen(buff));*/}
   | ID { Verif($1);/* snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));*/}
   | NR {/* snprintf(buff,100,"%d ",$1); write(fd, buff, strlen(buff));*/}
   | NR_FLOAT {/* snprintf(buff,100,"%f ",$1); write(fd, buff, strlen(buff));*/}
-  | ID indexes {/* snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));*/}
+  | ID '[' NR ']' {/* snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));*/}
   | ID '(' lista_apel ')'
   | ID '.' ID
   | ID '.' ID '(' lista_apel ')' { /*snprintf(buff,100,"%s.%s ", $1, $3); write(fd, buff, strlen(buff));*/}

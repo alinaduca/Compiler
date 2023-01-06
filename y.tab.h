@@ -49,51 +49,63 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    ID = 258,
-    TIP = 259,
-    ASSIGN = 260,
-    BGIN = 261,
-    END = 262,
-    CLASS = 263,
-    ECLASS = 264,
-    IF = 265,
-    EIF = 266,
-    OPR = 267,
-    FOR = 268,
-    EFOR = 269,
-    CONSTANT = 270,
-    WHILE = 271,
-    EWHILE = 272,
-    DO = 273,
-    EVAL = 274,
-    TYPEOF = 275,
-    BOOLOPR = 276,
-    NR = 277,
-    NR_FLOAT = 278
+    LEQ = 258,
+    GEQ = 259,
+    NEQ = 260,
+    EQ = 261,
+    AND = 262,
+    OR = 263,
+    ID = 264,
+    STRING = 265,
+    TIP = 266,
+    ASSIGN = 267,
+    BGIN = 268,
+    END = 269,
+    CLASS = 270,
+    ECLASS = 271,
+    IF = 272,
+    EIF = 273,
+    OPR = 274,
+    FOR = 275,
+    EFOR = 276,
+    CONSTANT = 277,
+    WHILE = 278,
+    EWHILE = 279,
+    DO = 280,
+    EVAL = 281,
+    TYPEOF = 282,
+    NR = 283,
+    NR_FLOAT = 284
   };
 #endif
 /* Tokens.  */
-#define ID 258
-#define TIP 259
-#define ASSIGN 260
-#define BGIN 261
-#define END 262
-#define CLASS 263
-#define ECLASS 264
-#define IF 265
-#define EIF 266
-#define OPR 267
-#define FOR 268
-#define EFOR 269
-#define CONSTANT 270
-#define WHILE 271
-#define EWHILE 272
-#define DO 273
-#define EVAL 274
-#define TYPEOF 275
-#define BOOLOPR 276
-#define NR 277
-#define NR_FLOAT 278
+#define LEQ 258
+#define GEQ 259
+#define NEQ 260
+#define EQ 261
+#define AND 262
+#define OR 263
+#define ID 264
+#define STRING 265
+#define TIP 266
+#define ASSIGN 267
+#define BGIN 268
+#define END 269
+#define CLASS 270
+#define ECLASS 271
+#define IF 272
+#define EIF 273
+#define OPR 274
+#define FOR 275
+#define EFOR 276
+#define CONSTANT 277
+#define WHILE 278
+#define EWHILE 279
+#define DO 280
+#define EVAL 281
+#define TYPEOF 282
+#define NR 283
+#define NR_FLOAT 284
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -104,8 +116,9 @@ union YYSTYPE
      float floatval;
      int intval;
      char* strval;
+     struct AST* tree;
 
-#line 109 "y.tab.h"
+#line 122 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

@@ -5,7 +5,9 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+char lastTypeUsed[20];
 char buff[100];
+int varCount = 0;
 int fd, fd1;
 struct informatii{
       int int_val;
@@ -15,10 +17,31 @@ struct informatii{
       int type;
 };
 
-struct param{
+struct AST
+{
+     struct AST* st;
+     struct AST* dr;
+     int nodeType;
+     char name[20];
+};
+
+struct param {
       char nume[100];
+      char tip[10];
       struct informatii info;
-}symbolTable[100];
+      int local;
+      int isConst;
+      int arrSize;
+      int arr[100];
+      int elemente;
+} symbolTable[100];
+
+struct func {
+    char nume[100];
+     char paramTypes[50];
+     char retType[20];
+     unsigned int nrArgs;
+} symbolTableFunctions[100];
 
 void initialize()
 {
@@ -33,12 +56,28 @@ void initialize()
     }
 }
 
+void addInTable(char s[], char tip[])
+{
+    if(!strcmp(tip, "tip"))
+    {
+        strcpy(lastTypeUsed, tip);
+    }
+    else
+    {
+        if(!strcmp(tip, "variabila"))
+        {
+            strcpy(symbolTable[varCount].nume, s);
+        }
+    }
+    
+}
+
 void eval(struct informatii *inf)
 {
 	printf("Valoarea este: %d\n", inf->int_val);
 }
 
-void Verif(char *id)
+void Verif(char s[])
 {
-    
+
 }

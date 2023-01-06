@@ -14,7 +14,7 @@ end_clasa
 
 begin_main
     a1 = 5 - a1 * 2;
-    f1 = 6;
+    f1 = 7 - 6;
     biblioteca.carte=5;
     exist = biblioteca.existaCarte(ISBN);
     program(a1 + 2*5, 5, program(2,a1+10)*ceva+vec[10] + biblioteca.carte);
