@@ -1,7 +1,8 @@
-int a1, b1;
-float f1;
-bool x;
-int yy[100];
+int a1, b1, ceva, ana,a, b, c, i, mara, maria, noapte, zi, fi, bianca;
+float f1, simona;
+bool x,exist;
+int yy[100], vec[100];
+string ISBN;
 
 int sum();
 int g(int s);
@@ -16,6 +17,8 @@ begin_main
     a1 = 5 - a1 * 2;
     f1 = 7 - 6;
     biblioteca.carte=5;
+    g(a1, b1);
+    vec[17] = 5.2;
     exist = biblioteca.existaCarte(ISBN);
     program(a1 + 2*5, 5, program(2,a1+10)*ceva+vec[10] + biblioteca.carte);
     if ( ana > 7 && ana < 2) 

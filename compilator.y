@@ -48,40 +48,44 @@ sectiunea3 : clasa
            | sectiunea3 clasa
            ;
 
-declaratieVariabila : TIP lista_id { snprintf(buff,100,"(%s)\n", $1); write(fd, buff, strlen(buff));addInTable(0, 0, $1, "tip", 0, 0, "", ""); }
-                    | CONSTANT TIP lista_id {addInTable(1, 0, $1, "tip", 0, 0, "", "");}
+declaratieVariabila : TIP lista_id { snprintf(buff,100,"(%s)\n", $1); write(fd, buff, strlen(buff));addInTable(0, 0, $1, "tip", 0, 0, "", "", 0); }
+                    | CONSTANT TIP lista_id {addInTable(1, 0, $1, "tip", 0, 0, "", "", 0);}
                     ;
 
-declaratieFunctie : TIP ID '(' lista_param ')' { snprintf(buff,100,"[FUNCTION] %s (%s) \n",$1, $2); write(fd1, buff, strlen(buff));}
-                  | TIP ID '(' ')' { snprintf(buff,100,"[FUNCTION] %s (%s) \n",$1, $2); write(fd1, buff, strlen(buff));}
+declaratieVariabilaClasa : TIP lista_id { snprintf(buff,100,"(%s)\n", $1); write(fd, buff, strlen(buff));addInTable(0, 0, $1, "tip", 0, 0, "", "", 1); }
+                         | CONSTANT TIP lista_id {addInTable(1, 0, $1, "tip", 0, 0, "", "", 1);}
+                         ;
+
+declaratieFunctie : TIP ID '(' lista_param ')' { snprintf(buff,100,"[FUNCTION] %s (%s) \n",$1, $2); write(fd1, buff, strlen(buff)); addInTableFunctions($1, $2, "tip", yylineno);}
+                  | TIP ID '(' ')' { snprintf(buff,100,"[FUNCTION] %s (%s) \n",$1, $2); write(fd1, buff, strlen(buff)); addInTableFunctions($1, $2, "tip", yylineno);}
                   ;
 
-clasa : CLASS ID interior_clasa ECLASS 
+clasa : CLASS ID interior_clasa ECLASS {Clasa($2);}
       ;
 
-sectiuneaclasa1 : declaratieVariabila ';'
-                | sectiuneaclasa1 declaratieVariabila ';'
+sectiuneaclasa1 : declaratieVariabilaClasa ';'
+                | sectiuneaclasa1 declaratieVariabilaClasa ';'
                 ;
 
 sectiuneaclasa2 : declaratieFunctie ';'
-           | sectiuneaclasa2 declaratieFunctie ';'
-           ;
+                | sectiuneaclasa2 declaratieFunctie ';'
+                ;
 
 interior_clasa : sectiuneaclasa1 sectiuneaclasa2
                | sectiuneaclasa1
                | sectiuneaclasa2
                ;
 
-lista_id : ID { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff)); addInTable(0, 0, $1, "variabila", 0, 0, "", "");}
-         | ID '[' NR ']' { snprintf(buff,100,"%s[%d] ",$1, $3); write(fd, buff, strlen(buff)); addInTable(0, $3, $1, "variabila", 0, 0, "", "");}
-         | ID ',' lista_id { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));  addInTable(0, 0, $1, "variabila", 0, 0, "", "");}
-         | ID '[' NR ']' ',' lista_id { snprintf(buff,100,"%s[%d] ",$1, $3); write(fd, buff, strlen(buff)); addInTable(0, $3, $1, "variabila", 0, 0, "", "");}
-         | ID ASSIGN e { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff)); addInTable(0, 0, $1, "variabila", 0, 0, "", "");}
-         | ID ASSIGN e ',' lista_id { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff)); addInTable(0, 0, $1, "variabila", 0, 0, "", "");}
-         | ID ASSIGN STRING { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff)); addInTable(0, 0, $1, "variabila", 0, 0, "", $3);}
-         | ID ASSIGN STRING ',' lista_id { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff)); addInTable(0, 0, $1, "variabila", 0, 0, "", $3);}
-         | ID ASSIGN CHAR { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff)); addInTable(0, 0, $1, "variabila", 0, 0, $3, "");}
-         | ID ASSIGN CHAR ',' lista_id { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff)); addInTable(0, 0, $1, "variabila", 0, 0, $3, "");}
+lista_id : ID { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff)); addInTable(0, 0, $1, "variabila", 0, 0, "", "", 0);}
+         | ID '[' NR ']' { snprintf(buff,100,"%s[%d] ",$1, $3); write(fd, buff, strlen(buff)); addInTable(0, $3, $1, "variabila", 0, 0, "", "", 0);}
+         | ID ',' lista_id { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));  addInTable(0, 0, $1, "variabila", 0, 0, "", "", 0);}
+         | ID '[' NR ']' ',' lista_id { snprintf(buff,100,"%s[%d] ",$1, $3); write(fd, buff, strlen(buff)); addInTable(0, $3, $1, "variabila", 0, 0, "", "", 0);}
+         | ID ASSIGN e { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff)); addInTable(0, 0, $1, "variabila", 0, 0, "", "", 0);}
+         | ID ASSIGN e ',' lista_id { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff)); addInTable(0, 0, $1, "variabila", 0, 0, "", "", 0);}
+         | ID ASSIGN STRING { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff)); addInTable(0, 0, $1, "variabila", 0, 0, "", $3, 0);}
+         | ID ASSIGN STRING ',' lista_id { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff)); addInTable(0, 0, $1, "variabila", 0, 0, "", $3, 0);}
+         | ID ASSIGN CHAR { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff)); addInTable(0, 0, $1, "variabila", 0, 0, $3, "", 0);}
+         | ID ASSIGN CHAR ',' lista_id { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff)); addInTable(0, 0, $1, "variabila", 0, 0, $3, "", 0);}
          ;
 
 lista_param : param
@@ -105,12 +109,12 @@ list : statement ';'
      ;
 
 /* instructiune */
-statement: ID ASSIGN e { Verif($1, yylineno);/*snprintf(buff,100," = %s\n", $1); write(fd, buff, strlen(buff));*/}
-         | ID '(' lista_apel ')'
+statement: ID ASSIGN e { Verif($1, yylineno, 0);/*snprintf(buff,100," = %s\n", $1); write(fd, buff, strlen(buff));*/}
+         | ID '(' lista_apel ')' {VerifFct($1, yylineno);}
          | TYPEOF '(' e ')' {/* snprintf(buff,100,"TypeOf \n"); write(fd, buff, strlen(buff));*/}
          | ID '.' ID ASSIGN e {/* snprintf(buff,100,"= %s.%s\n", $1, $3); write(fd, buff, strlen(buff));*/}
          | ID '.' ID '(' lista_apel ')'
-         | ID '[' NR ']' ASSIGN { /*snprintf(buff,100,"%s = ",$1); write(fd, buff, strlen(buff));*/} e
+         | ID '[' NR ']' ASSIGN { /*snprintf(buff,100,"%s = ",$1); write(fd, buff, strlen(buff));*/ Verif($1, yylineno, $3);} e
          ;
 
 if : IF '(' cond ')' list EIF
@@ -137,22 +141,23 @@ for : FOR '(' TIP ID ASSIGN e ';' cond ';' statement ')' list EFOR
     ;
 
 do : DO list WHILE '(' cond ')' ';'
+   ;
 
 while : WHILE '(' cond ')' list EWHILE
       ;
 
-e : e '+' e {/* snprintf(buff,100," + "); write(fd, buff, strlen(buff));*/}
-  | e '-' e {/* snprintf(buff,100," - "); write(fd, buff, strlen(buff));*/}
-  | e '*' e {/* snprintf(buff,100," * "); write(fd, buff, strlen(buff));*/}
-  | e '/' e {/* snprintf(buff,100," / "); write(fd, buff, strlen(buff));*/}
+e : e '+' e {}
+  | e '-' e {}
+  | e '*' e {}
+  | e '/' e {}
   | '(' e ')'
-  | ID { Verif($1, yylineno);/* snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));*/}
-  | NR {/* snprintf(buff,100,"%d ",$1); write(fd, buff, strlen(buff));*/}
-  | NR_FLOAT {/* snprintf(buff,100,"%f ",$1); write(fd, buff, strlen(buff));*/}
-  | ID '[' NR ']' {/* snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));*/}
+  | ID { Verif($1, yylineno, 0);}
+  | NR {}
+  | NR_FLOAT {}
+  | ID '[' NR ']' {Verif($1, yylineno, 1);}
   | ID '(' lista_apel ')'
-  | ID '.' ID
-  | ID '.' ID '(' lista_apel ')' { /*snprintf(buff,100,"%s.%s ", $1, $3); write(fd, buff, strlen(buff));*/}
+  | ID '.' ID { snprintf(buff,100,"%s.%s", $1, $3); /*write(fd, buff, strlen(buff));*/ Verif(buff, yylineno, 0);}
+  | ID '.' ID '(' lista_apel ')' { snprintf(buff,100,"%s.%s", $1, $3); /*write(fd, buff, strlen(buff));*/ }
   | EVAL '(' e ')' {/* snprintf(buff,100,"Eval "); write(fd, buff, strlen(buff));*/}
   ;
 
