@@ -16,6 +16,7 @@ extern int yylineno;
 %token <strval> STRING
 %token <strval> TIP ASSIGN BGIN END CLASS ECLASS IF EIF
 %token <strval> OPR FOR EFOR CONSTANT WHILE EWHILE DO EVAL TYPEOF
+%token <strval> CHAR
 %token <intval> NR
 %token <floatval> NR_FLOAT
 %start progr
@@ -47,8 +48,8 @@ sectiunea3 : clasa
            | sectiunea3 clasa
            ;
 
-declaratieVariabila : TIP lista_id { snprintf(buff,100,"(%s)\n", $1); write(fd, buff, strlen(buff));addInTable($1, "tip"); }
-                    | CONSTANT TIP lista_id
+declaratieVariabila : TIP lista_id { snprintf(buff,100,"(%s)\n", $1); write(fd, buff, strlen(buff));addInTable(0, 0, $1, "tip", 0, 0, "", ""); }
+                    | CONSTANT TIP lista_id {addInTable(1, 0, $1, "tip", 0, 0, "", "");}
                     ;
 
 declaratieFunctie : TIP ID '(' lista_param ')' { snprintf(buff,100,"[FUNCTION] %s (%s) \n",$1, $2); write(fd1, buff, strlen(buff));}
@@ -71,14 +72,16 @@ interior_clasa : sectiuneaclasa1 sectiuneaclasa2
                | sectiuneaclasa2
                ;
 
-lista_id : ID { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff)); addInTable($1, "variabila");}
-         | ID '[' NR ']' { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
-         | ID ',' lista_id { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
-         | ID '[' NR ']' ',' lista_id { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
-         | ID ASSIGN e { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
-         | ID ASSIGN e ',' lista_id { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
-         | ID ASSIGN STRING { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
-         | ID ASSIGN STRING ',' lista_id { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));}
+lista_id : ID { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff)); addInTable(0, 0, $1, "variabila", 0, 0, "", "");}
+         | ID '[' NR ']' { snprintf(buff,100,"%s[%d] ",$1, $3); write(fd, buff, strlen(buff)); addInTable(0, $3, $1, "variabila", 0, 0, "", "");}
+         | ID ',' lista_id { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));  addInTable(0, 0, $1, "variabila", 0, 0, "", "");}
+         | ID '[' NR ']' ',' lista_id { snprintf(buff,100,"%s[%d] ",$1, $3); write(fd, buff, strlen(buff)); addInTable(0, $3, $1, "variabila", 0, 0, "", "");}
+         | ID ASSIGN e { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff)); addInTable(0, 0, $1, "variabila", 0, 0, "", "");}
+         | ID ASSIGN e ',' lista_id { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff)); addInTable(0, 0, $1, "variabila", 0, 0, "", "");}
+         | ID ASSIGN STRING { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff)); addInTable(0, 0, $1, "variabila", 0, 0, "", $3);}
+         | ID ASSIGN STRING ',' lista_id { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff)); addInTable(0, 0, $1, "variabila", 0, 0, "", $3);}
+         | ID ASSIGN CHAR { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff)); addInTable(0, 0, $1, "variabila", 0, 0, $3, "");}
+         | ID ASSIGN CHAR ',' lista_id { snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff)); addInTable(0, 0, $1, "variabila", 0, 0, $3, "");}
          ;
 
 lista_param : param
@@ -102,7 +105,7 @@ list : statement ';'
      ;
 
 /* instructiune */
-statement: ID ASSIGN e { /*snprintf(buff,100," = %s\n", $1); write(fd, buff, strlen(buff));*/}
+statement: ID ASSIGN e { Verif($1, yylineno);/*snprintf(buff,100," = %s\n", $1); write(fd, buff, strlen(buff));*/}
          | ID '(' lista_apel ')'
          | TYPEOF '(' e ')' {/* snprintf(buff,100,"TypeOf \n"); write(fd, buff, strlen(buff));*/}
          | ID '.' ID ASSIGN e {/* snprintf(buff,100,"= %s.%s\n", $1, $3); write(fd, buff, strlen(buff));*/}
@@ -143,7 +146,7 @@ e : e '+' e {/* snprintf(buff,100," + "); write(fd, buff, strlen(buff));*/}
   | e '*' e {/* snprintf(buff,100," * "); write(fd, buff, strlen(buff));*/}
   | e '/' e {/* snprintf(buff,100," / "); write(fd, buff, strlen(buff));*/}
   | '(' e ')'
-  | ID { Verif($1);/* snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));*/}
+  | ID { Verif($1, yylineno);/* snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));*/}
   | NR {/* snprintf(buff,100,"%d ",$1); write(fd, buff, strlen(buff));*/}
   | NR_FLOAT {/* snprintf(buff,100,"%f ",$1); write(fd, buff, strlen(buff));*/}
   | ID '[' NR ']' {/* snprintf(buff,100,"%s ",$1); write(fd, buff, strlen(buff));*/}
@@ -156,9 +159,10 @@ e : e '+' e {/* snprintf(buff,100," + "); write(fd, buff, strlen(buff));*/}
 lista_apel : { /*snprintf(buff,100,"( "); write(fd, buff, strlen(buff));*/} e {/* snprintf(buff,100,")\n"); write(fd, buff, strlen(buff));*/}
            | lista_apel ',' e
            ;
+
 %%
 
-int calcul(struct informatii *info1, int operator, struct informatii *info2)
+/* int calcul(struct informatii *info1, int operator, struct informatii *info2)
 {
     switch(operator)
     {
@@ -175,7 +179,7 @@ int calcul(struct informatii *info1, int operator, struct informatii *info2)
             return info1->int_val + info2->int_val;
             break;
     }
-}
+} */
 
 int yyerror(char * s)
 {
@@ -189,4 +193,4 @@ int main(int argc, char** argv)
     initialize();
     yyin = fopen(argv[1],"r");
     yyparse();
-} 
+}

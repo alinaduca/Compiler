@@ -74,8 +74,9 @@ extern int yydebug;
     DO = 280,
     EVAL = 281,
     TYPEOF = 282,
-    NR = 283,
-    NR_FLOAT = 284
+    CHAR = 283,
+    NR = 284,
+    NR_FLOAT = 285
   };
 #endif
 /* Tokens.  */
@@ -104,8 +105,9 @@ extern int yydebug;
 #define DO 280
 #define EVAL 281
 #define TYPEOF 282
-#define NR 283
-#define NR_FLOAT 284
+#define CHAR 283
+#define NR 284
+#define NR_FLOAT 285
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -118,7 +120,7 @@ union YYSTYPE
      char* strval;
      struct AST* tree;
 
-#line 122 "y.tab.h"
+#line 124 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

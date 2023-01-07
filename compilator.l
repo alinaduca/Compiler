@@ -27,9 +27,10 @@
 "TypeOf" {return TYPEOF;}
 [_a-zA-Z][_a-zA-Z0-9]* {yylval.strval=strdup(yytext); return ID;}
 \"[.]+\" {yylval.strval = strdup(yytext); yylval.strval++; yylval.strval[strlen(yylval.strval)-1] = 0; return STRING;}
+\'.\' {yylval.strval = strdup(yytext); yylval.strval++; yylval.strval[strlen(yylval.strval)-1] = 0; return CHAR;}
 "=" {yylval.strval=strdup(yytext);return ASSIGN;}
 -?[1-9][0-9]*|0 {yylval.intval=atoi(yytext); return NR;}
--?[1-9][0-9]*.[0-9]+|-?0.[0-9]+  {yylval.floatval=atof(yytext); return NR_FLOAT;}
+-?[1-9][0-9]*\.[0-9]+|-?0\.[0-9]+  {yylval.floatval=atof(yytext); return NR_FLOAT;}
 [ \t] ;
 \n {yylineno++;}
 . {return yytext[0];}
