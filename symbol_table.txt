@@ -1,6 +1,10 @@
-bianca fi zi noapte maria mara i c b a ana ceva b1 a1 (int)
-simona f1 (float)
-exist x (bool)
-vec[100] yy[100] (int)
-ISBN (string)
-carte (int)
+x int 3
+x1 int 700
+x2 int 30
+y int 100
+arr int 0
+f float 30.000000
+f1 float 0.000000
+ch char c
+C1.w int 0
+C2.t int 0

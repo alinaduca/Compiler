@@ -1,0 +1,56 @@
+int x ;
+int x1;
+int x2;
+int y;
+int arr[10];
+float f = 20.0 ;
+float f1;
+char ch = 'c';
+
+int testFunction(int x, float z) 
+begin_function
+    x = x1 + 1;
+end_function
+
+int test2(int x, int z) 
+begin_function
+    x = x1 + 1;
+end_function
+
+int test(int param1, int param2, float f)
+begin_function
+    x = x1 + 1;
+end_function
+
+begin_clasa C1
+    int w;
+end_clasa
+
+begin_clasa C2
+    int t;
+end_clasa
+
+begin_main    
+    f = 30.0;
+    x = 10;
+    x1 = 20;
+    x2 = 30;
+    y = 100;
+    x = test(test(x1, 3, f) + 2, y+4, f);
+    x = test(test(x1,3,f)+2, y+4, f) + (30 - y * arr[2]) - 10;
+    if(x1 + test(x1, x2, f) < 5 + x1 && ((x > 2 || x1 < 4 + x2) || x == 2)) 
+        x = 2;
+    end_if
+
+    if(x1 + test(x1, x2, f) < 5 + x1 && ((x > 2 || x1 < 4 + x2) || x == 2))
+	   x = 2;
+    end_if
+    x1 = x*100 + 5 * 100 + arr[2];
+    x = 3;
+    Eval(x*10 - 100);
+    Eval(x1);
+    Eval(x2* 10 - 200) ;
+    Eval(x+ test(x1,x,f)) ; 	
+    TypeOf(x + 23);
+    TypeOf(f + 30.0);
+end_main

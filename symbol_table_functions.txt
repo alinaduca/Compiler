@@ -1,4 +1,3 @@
-[FUNCTION] int (sum) 
-int (s) [FUNCTION] int (g) 
-int (a) int (b) [FUNCTION] int (program) 
-string (ISBN) [FUNCTION] bool (existaCarte) 
+int testFunction (int x, float z)
+int test2 (int x, int z)
+int test (int param1, int param2, float f)

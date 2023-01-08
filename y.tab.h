@@ -53,30 +53,33 @@ extern int yydebug;
     GEQ = 259,
     NEQ = 260,
     EQ = 261,
-    AND = 262,
-    OR = 263,
-    ID = 264,
-    STRING = 265,
-    TIP = 266,
-    ASSIGN = 267,
-    BGIN = 268,
-    END = 269,
-    CLASS = 270,
-    ECLASS = 271,
-    IF = 272,
-    EIF = 273,
-    OPR = 274,
-    FOR = 275,
-    EFOR = 276,
-    CONSTANT = 277,
-    WHILE = 278,
-    EWHILE = 279,
-    DO = 280,
-    EVAL = 281,
-    TYPEOF = 282,
-    CHAR = 283,
-    NR = 284,
-    NR_FLOAT = 285
+    RETURN = 262,
+    BFCT = 263,
+    EFCT = 264,
+    AND = 265,
+    OR = 266,
+    ID = 267,
+    STRING = 268,
+    TIP = 269,
+    ASSIGN = 270,
+    BGIN = 271,
+    END = 272,
+    CLASS = 273,
+    ECLASS = 274,
+    IF = 275,
+    EIF = 276,
+    ELSE = 277,
+    FOR = 278,
+    EFOR = 279,
+    CONSTANT = 280,
+    WHILE = 281,
+    EWHILE = 282,
+    DO = 283,
+    EVAL = 284,
+    TYPEOF = 285,
+    CHAR = 286,
+    NR = 287,
+    NR_FLOAT = 288
   };
 #endif
 /* Tokens.  */
@@ -84,30 +87,33 @@ extern int yydebug;
 #define GEQ 259
 #define NEQ 260
 #define EQ 261
-#define AND 262
-#define OR 263
-#define ID 264
-#define STRING 265
-#define TIP 266
-#define ASSIGN 267
-#define BGIN 268
-#define END 269
-#define CLASS 270
-#define ECLASS 271
-#define IF 272
-#define EIF 273
-#define OPR 274
-#define FOR 275
-#define EFOR 276
-#define CONSTANT 277
-#define WHILE 278
-#define EWHILE 279
-#define DO 280
-#define EVAL 281
-#define TYPEOF 282
-#define CHAR 283
-#define NR 284
-#define NR_FLOAT 285
+#define RETURN 262
+#define BFCT 263
+#define EFCT 264
+#define AND 265
+#define OR 266
+#define ID 267
+#define STRING 268
+#define TIP 269
+#define ASSIGN 270
+#define BGIN 271
+#define END 272
+#define CLASS 273
+#define ECLASS 274
+#define IF 275
+#define EIF 276
+#define ELSE 277
+#define FOR 278
+#define EFOR 279
+#define CONSTANT 280
+#define WHILE 281
+#define EWHILE 282
+#define DO 283
+#define EVAL 284
+#define TYPEOF 285
+#define CHAR 286
+#define NR 287
+#define NR_FLOAT 288
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -115,12 +121,12 @@ union YYSTYPE
 {
 #line 7 "compilator.y"
 
-     float floatval;
-     int intval;
-     char* strval;
-     struct AST* tree;
+    float floatval;
+    int intval;
+    char* strval;
+    struct AST* tree;
 
-#line 124 "y.tab.h"
+#line 130 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
