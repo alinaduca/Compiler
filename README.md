@@ -1,4 +1,4 @@
-# 🔀 Compilator 
+# 🔀 Compiler
 
 This project represents a compiler for an original programming language. This compiler recognizes data types such as int, float, char, string, bool, as well as array types or user defined data types (similar to classes) and is able to identify mathematical expressions in which variables or values are used and perform the calculations related.
 
