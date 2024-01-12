@@ -19,4 +19,13 @@ Here you can find the complete project requirements in the provided Google Docum
 
 - 📄 [Project Requirements](https://docs.google.com/document/d/e/2PACX-1vSPtlCGriAbiQZdOZGlCxDha3PSaGQo5sff6GWC1wgcuZkJhSpW3UG6RzYTgmebSrQKkm43-BMlEWmG/pub)
 
+#### How to run?
+
+```
+  git clone https://github.com/alinaduca/Compiler.git
+```
+```
+  make
+```
+
 📝 **Final grade:** 10
